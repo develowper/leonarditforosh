@@ -86,7 +86,7 @@
 
           </Link>
           <!-- items card -->
-          <div :class="cardShadow"
+          <div v-if="false" :class="cardShadow"
                class="flex   cursor-pointer   items-center justify-around   bg-white  rounded-lg">
             <div class="flex flex-col grow">
               <h6 class="text-xs font-bold   p-4 tracking-wider text-gray-500 uppercase">
@@ -112,128 +112,12 @@
 
           </div>
           <!-- available projects card -->
-          <Link :href="route('panel.project_item.available'  )" :class="cardShadow"
-                class="flex lg:col-span-1 hover:scale-[101%] transition duration-300 cursor-pointer   items-center justify-around   p-4 bg-success-50  rounded-lg">
-            <div class="flex flex-col grow">
-              <h6 class="text-xs font-bold   py-2 tracking-wider text-gray-500 uppercase">
-                {{ __('available_projects') }}
-              </h6>
 
-              <div class="justify-around flex  ">
-                  <span v-for="(p,idx) in availableOrders" class="align-middle flex  flex-col text-center  ">
-                          <span
-                              :class="`text-${p.color}-500`"
-                              class="  text-xl font-semibold "> {{ p.value }}</span>
-                          <span
-                              :class="`text-${p.color}-500 bg-${p.color}-100` "
-                              class="   mx-1 px-2 py-1    text-xs  rounded-md">
-                     {{ __(p.title) }}
-                          </span>
-                  </span>
-              </div>
-
-            </div>
-            <div class="flex">
-              <BellAlertIcon class="w-12 h-12 text-green-300 "/>
-            </div>
-          </Link>
-
-          <div class="grid lg:col-span-2  gap-2 grid-cols-1 lg:grid-cols-2 ">
-            <!-- my orders card -->
-            <Link :href="route('panel.project.index')" :class="cardShadow"
-                  class="flex lg:col-span-1 hover:scale-[101%] transition duration-300 cursor-pointer   items-center justify-around   p-4 bg-white  rounded-lg">
-              <div class="flex flex-col grow">
-                <h6 class="text-xs font-bold   py-2 tracking-wider text-gray-500 uppercase">
-                  {{ __('your_orders') }}
-                </h6>
-
-                <div class="justify-around flex  ">
-                  <span v-for="(p,idx) in myOrders" class="align-middle flex  flex-col text-center  ">
-                          <span
-                              :class="`text-${p.color}-500`"
-                              class="  text-xl font-semibold "> {{ p.value }}</span>
-                          <span
-                              :class="`text-${p.color}-500 bg-${p.color}-100` "
-                              class="   mx-1 px-2 py-1    text-xs  rounded-md">
-                     {{ __(p.title) }}
-                          </span>
-                  </span>
-                </div>
-
-              </div>
-              <div class="flex">
-                <ShoppingBagIcon class="w-12 h-12 text-primary-300 "/>
-              </div>
-            </Link>
-
-
-            <!-- working projects card -->
-            <Link :href="route('panel.project.index')" :class="cardShadow"
-                  class="flex lg:col-span-1 hover:scale-[101%] transition duration-300 cursor-pointer   items-center justify-around   p-4 bg-white  rounded-lg">
-              <div class="flex flex-col grow">
-                <h6 class="text-xs font-bold   py-2 tracking-wider text-gray-500 uppercase">
-                  {{ __('working_projects') }}
-                </h6>
-
-                <div class="justify-around flex  ">
-                  <span v-for="(p,idx) in myWorkingProjects" class="align-middle flex  flex-col text-center  ">
-                          <span
-                              :class="`text-${p.color}-500`"
-                              class="  text-xl font-semibold "> {{ p.value }}</span>
-                          <span
-                              :class="`text-${p.color}-500 bg-${p.color}-100` "
-                              class="   mx-1 px-2 py-1    text-xs  rounded-md">
-                     {{ __(p.title) }}
-                          </span>
-                  </span>
-                </div>
-
-              </div>
-              <div class="flex">
-                <BriefcaseIcon class="w-12 h-12 text-primary-300 "/>
-              </div>
-            </Link>
-
-          </div>
         </div>
 
 
         <!-- Charts -->
         <div class="grid-cols-1  px-4 space-y-2 gap-2     xl:grid-cols-2">
-          <!-- Bar chart card -->
-          <div v-if="  $page.props.hasAdvertise" class="  bg-white rounded-md"
-               x-data="{ isOn: false }">
-            <!-- Card header -->
-            <div class="flex items-center justify-between p-4 border-b">
-              <h4 class="text-lg font-semibold text-gray-500"> {{ __('advertises_statistics') }}</h4>
-              <div v-if="false" class="flex items-center space-x-2">
-                <span class="text-sm text-gray-500"> </span>
-                <button class="relative focus:outline-none"
-                        @click="isOn = !isOn;  ">
-                  <div
-                      class="w-12 h-6 transition rounded-full outline-none bg-primary-100"></div>
-                  <div
-                      class="absolute top-0 left-0 inline-flex items-center justify-center w-6 h-6 transition-all duration-200 ease-in-out transform scale-110 rounded-full shadow-sm translate-x-0 bg-white"
-                      :class="{ 'translate-x-0  bg-white': !isOn, 'translate-x-6 bg-primary-light': isOn }"></div>
-                </button>
-              </div>
-            </div>
-            <!-- Chart -->
-            <div class="relative px-4 ">
-              <div class="chartjs-size-monitor">
-                <div class="chartjs-size-monitor-expand">
-                  <div class=""></div>
-                </div>
-                <div class="chartjs-size-monitor-shrink">
-                  <div class=""></div>
-                </div>
-              </div>
-              <Chart key="advertises" id="advertises" :units="[__('view'),__('currency'),__('meta')]"
-                     :log-link="route('transaction.chart')"
-                     :parent-params="{user_id:user.id,type:'data'}"
-              />
-            </div>
-          </div>
           <!-- Bar chart card -->
           <div class=" bg-white rounded-md"
                x-data="{ isOn: false }">
@@ -262,7 +146,7 @@
                   <div class=""></div>
                 </div>
               </div>
-              <Chart key="transactions" id="transactions" :units="[__('view'),__('currency'),__('meta')]"
+              <Chart key="transactions" id="transactions" :units="[ ]"
                      :log-link="route('transaction.chart')"
                      :parent-params="{user_id:user.id,type:'user'}"
               />
