@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Http\Helpers\Variable;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
@@ -31,7 +32,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-
+        $socials = Setting::where('key', 'like', 'social_%')->get();
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
@@ -66,11 +67,11 @@ class HandleInertiaRequests extends Middleware
             'extra' => fn() => $request->session()->get('extra'),
             'pageItems' => Variable::PAGINATE,
             'socials' => [
-                'whatsapp' => "https://wa.me/00989132258738",
-                'telegram' => "https://t.me/hasannejhad",
-                'phone' => "09132258738",
-                'email' => "info@koodkabotar.com",
-                'address' => __('address'),
+                'whatsapp' => "https://wa.me/" . optional($socials->where('key', 'social_whatsapp')->first())->value,
+                'telegram' => "https://t.me/" . optional($socials->where('key', 'social_telegram')->first())->value,
+                'phone' => optional($socials->where('key', 'social_phone')->first())->value,
+                'email' => optional($socials->where('key', 'social_email')->first())->value,
+                'address' => optional($socials->where('key', 'social_address')->first())->value,
             ],
         ]);
     }

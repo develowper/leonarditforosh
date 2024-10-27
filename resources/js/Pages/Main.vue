@@ -52,14 +52,14 @@
             </div>
             <div class=" z-10 p-3    flex  items-center">
 
-              <SecondaryButton @click="params.type='order'; "
+              <SecondaryButton @click="params.type='order';recaptchaExpired() "
                                data-te-toggle="modal"
                                data-te-target="#messageModal"
                                data-te-ripple-init class="mx-2 p-2 grow">{{
                   __('reg_order')
                 }}
               </SecondaryButton>
-              <PrimaryButton @click="params.type='referral' "
+              <PrimaryButton @click="params.type='referral';recaptchaExpired() "
                              data-te-toggle="modal"
                              data-te-target="#messageModal"
                              data-te-ripple-init class="mx-2 p-2 grow">{{
@@ -187,7 +187,10 @@
       </Transition>
 
       <div
-          class=" flex   rounded-lg  overflow-hidden h-72 lg:h-72 xl:h-[24rem] w-full        ">
+          class=" flex flex-col justify-center   rounded-lg  overflow-hidden h-72 lg:h-72    w-fit mx-auto     ">
+        <Link :href="route('article.index')" class="text-lg text-primary-500 font-bold p-2 hover:text-primary-400">
+          {{ __('articles') }}
+        </Link>
         <ArticleSlider :items="$page.props.articles" :delay="8000"></ArticleSlider>
       </div>
     </div>
@@ -441,6 +444,7 @@ export default {
     InputError,
     StarIcon,
     ArticleSlider,
+    Link,
   },
   // mixins: [Mixin],
   setup(props) {

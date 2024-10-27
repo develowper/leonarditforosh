@@ -259,8 +259,8 @@ export default {
 <style scoped lang="scss">
 $border-radius: .25rem;
 $gray-400: #ced4da;
-$purple: #9561e2;
-$indigo: #6574cd;
+$purple: #32cd32;
+$indigo: #1d8d1d;
 .progress-line {
   border-radius: $border-radius;
   background-color: $gray-400;

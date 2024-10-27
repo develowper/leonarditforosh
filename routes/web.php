@@ -67,6 +67,7 @@ use Inertia\Inertia;
 
 Route::get('test', function () {
 
+
     return;
     return \Illuminate\Support\Facades\Artisan::call('store:transactions');
     return (new ArticleController())->search(new Request([]));
@@ -288,7 +289,6 @@ Route::middleware(['auth:sanctum',
 
 });
 
-Route::get('/articles', [ArticleController::class, 'index'])->name('article.index');
 
 Route::get('/make_money', [MainController::class, 'makeMoneyPage'])->name('page.make_money');
 Route::get('/prices', [MainController::class, 'pricesPage'])->name('page.prices');
@@ -299,6 +299,7 @@ Route::get('/exchange', [ExchangeController::class, 'index'])->name('exchange.in
 
 Route::get('/articles', [ArticleController::class, 'index'])->name('article.index');
 Route::get('/article/search', [ArticleController::class, 'search'])->name('article.search');
+Route::post('article/view', [ArticleController::class, 'increaseView'])->name('article.view');
 Route::get('article/{article}', [ArticleController::class, 'view'])->name('article');
 
 

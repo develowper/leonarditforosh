@@ -25,9 +25,12 @@
             <Link :href="route('article.index')" class="nav-item" :class="navClasses('article')">
               {{ __('articles') }}
             </Link>
-            <Link :href="route('page.contact_us')" class="nav-item " :class="navClasses('page.contact_us')">
+            <button @click="scrollTo('footer') " class="nav-item " :class="navClasses('page.contact_us')">
               {{ __('contact_us') }}
-            </Link>
+            </button>
+            <!--            <Link :href="route('page.contact_us')" class="nav-item " :class="navClasses('page.contact_us')">-->
+            <!--              {{ __('contact_us') }}-->
+            <!--            </Link>-->
             <!--            <Link :href="route('page.contact_us')" class="nav-item" :class="navClasses('contact_us')">-->
             <!--              {{ __('contact_us') }}-->
             <!--            </Link>-->
@@ -73,10 +76,12 @@
       <Link :href="route('article.index')" class="nav-ite" :class="navClasses('article')">
         {{ __('articles') }}
       </Link>
-
-      <Link :href="route('page.contact_us')" class="nav-ite " :class="navClasses('page.contact_us')">
+      <button @click="scrollTo('footer') " class="nav-item " :class="navClasses('page.contact_us')">
         {{ __('contact_us') }}
-      </Link>
+      </button>
+<!--      <Link :href="route('page.contact_us')" class="nav-ite " :class="navClasses('page.contact_us')">-->
+      <!--        {{ __('contact_us') }}-->
+      <!--      </Link>-->
     </div>
     <!--        <hr class="border-b border-gray-100 opacity-25 my-0 py-0"/>-->
   </nav>

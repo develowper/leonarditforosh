@@ -5,7 +5,8 @@
 
     </template>
 
-    <div class="relative  bg-gradient-to-t from-pink-300 via-purple-300 to-indigo-400">
+    <div
+        class="relative   bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-500 to-lime-600">
       <!--Hero-->
       <div class="py-4         mx-auto    ">
         <div class="  px-3  sm:px-1  flex   flex-col md:flex-row items-center ">
@@ -26,7 +27,7 @@
 
             <div class="  px-3    flex  items-stretch justify-center">
               <!--              <PrimaryButton class="mx-2 p-2 grow  ">{{ __('register_article') }}</PrimaryButton>-->
-              <SecondaryButton @click="$inertia.visit(route('panel.article.create'))"
+              <SecondaryButton v-if="false" @click="$inertia.visit(route('panel.admin.article.create'))"
                                class="md:mx-2 p-2  text-xs md:text-sm  ">
                 {{ __('register_article') }}
               </SecondaryButton>
@@ -68,103 +69,100 @@
 
 
       <div
-          class="   grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3  gap-4     ">
+          class="   flex flex-wrap  justify-center gap-4">
         <Link v-for="(d,idx) in data" :href="route('article',d.id)"
               class="  flex-col relative items-stretch cursor-pointer hover:scale-[101%] duration-300 rounded-lg overflow-hidden shadow-lg">
           <Image :src="route('storage.articles')+`/${d.id}.jpg`" classes="object-cover rounded-lg h-48   w-full"/>
           <div class="absolute text-gray-500 rounded-full p-4 mx-4 top-[10rem] bg-white   shadow-lg">
             <PencilIcon class="w-5 h-5 "/>
           </div>
-          <div v-if="d.status=='active'"
+          <div v-if="false "
                class="absolute  rounded-lg text-white bg-rose-500  p-1 px-2 m-2  end-0 top-0    shadow-lg">
-            {{ `${d.view_fee} ⭐️` }}
+            {{ `${d.view} ⭐️` }}
           </div>
 
           <div class="p-2 mt-4  text-gray-700">{{ cropText(d.title, 30) }}</div>
           <div class="px-2 py-2 text-sm   text-gray-400">{{ cropText(d.author, 30) }}</div>
-          <div class="px-4 py-2 text-xs   text-gray-400">{{ getCategory(d.category_id) }}</div>
           <hr class="border-gray-200  ">
-          <div class="flex justify-around  items-center p-4 text-sm text-gray-500">
+          <div class="flex justify-start  items-center p-4 text-sm text-gray-500">
             <div class="flex items-center">
               <!--              <EyeIcon class="w-4 h-4"/>-->
               <span class="px-1">{{ __('view') }}:</span>
               <span class="px-1">{{ d.view }}</span>
             </div>
-            <div class=" border-s   py-4"></div>
+            <div v-if="false" class=" border-s   py-4"></div>
             <!--            <div v-if="!hasWallet()" class="flex items-center">-->
             <!--              &lt;!&ndash;              <EyeIcon class="w-4 h-4"/>&ndash;&gt;-->
             <!--              <span class="px-1">{{ __('reward') }}:</span>-->
             <!--              <span class="px-1">{{ $page.props.site_view_meta_reward }} {{ __('meta') }}</span>-->
             <!--            </div>-->
-            <div class="flex items-center">
-              <!--              <EyeIcon class="w-4 h-4"/>-->
-              <!--              <span class="px-1">{{ __('location') }}:</span>-->
-              <!--              <span class="px-1">{{ getDuration(d.duration) }} </span>-->
-            </div>
+            <!--            <div class="flex items-center">-->
+            <!--              <EyeIcon class="w-4 h-4"/>-->
+            <!--              <span class="px-1">{{ __('location') }}:</span>-->
+            <!--              <span class="px-1">{{ getDuration(d.duration) }} </span>-->
+            <!--            </div>-->
 
           </div>
         </Link>
       </div>
     </section>
 
-    <section class="    ">
-      <div v-for="(cat,idx) in categories" class="  ps-8">
-        <div v-if="cat.data && cat.data.length>0" class="my-8">
-          <div class="p-2 my-2  font-semibold w-fit  text-primary-500   border-b-2 border-primary-500">{{
-              __(cat.name)
-            }}
-          </div>
-          <swiper v-if="cat.data" class="w-full   "
-                  :modules="modules"
+    <section v-if="false" class="    ">
+      <div v-if="data " class="my-8">
+        <div class="p-2 my-2  font-semibold w-fit  text-primary-500   border-b-2 border-primary-500">{{
 
-                  :slides-per-view="'auto'"
-                  :space-between="16"
-                  :pagination="{ clickable: true }"
-                  :scrollbar="{ draggable: true }"
-                  @swiper=""
-                  @slideChange=""
-          >
-            <swiper-slide v-for="(d,idx) in cat.data" class="max-w-[16rem]    ">
-              <Link :href="route('article',d.id)"
-                    class="   flex  my-2 flex-col relative items-stretch cursor-pointer hover:scale-[101%] duration-300 rounded-lg overflow-hidden shadow-lg">
-                <Image :src="route('storage.articles')+`/${d.id}.jpg`" classes="object-cover rounded-lg h-48   w-full"/>
-                <div class="absolute text-gray-500 rounded-full p-4 mx-4 top-[10rem] bg-white   shadow-lg">
-                  <PencilIcon class="w-5 h-5 "/>
-                </div>
-                <div v-if="d.status=='active'"
-                     class="absolute  rounded-lg text-white bg-rose-500  p-1 px-2 m-2  end-0 top-0    shadow-lg">
-                  {{ `${d.view_fee} ⭐️` }}
-                </div>
-
-                <div class="p-2 mt-4  text-gray-700">{{ cropText(d.title, 30) }}</div>
-                <div class="px-2 py-2 text-sm   text-gray-400">{{ cropText(d.author, 30) }}</div>
-                <div class="px-4 py-2 text-xs   text-gray-400">{{ getCategory(d.category_id) }}</div>
-                <hr class="border-gray-200  ">
-                <div class="flex justify-around  items-center p-4 text-sm text-gray-500">
-                  <div class="flex items-center">
-                    <!--              <EyeIcon class="w-4 h-4"/>-->
-                    <span class="px-1">{{ __('view') }}:</span>
-                    <span class="px-1">{{ d.view }}</span>
-                  </div>
-                  <div class=" border-s   py-4"></div>
-                  <!--            <div v-if="!hasWallet()" class="flex items-center">-->
-                  <!--              &lt;!&ndash;              <EyeIcon class="w-4 h-4"/>&ndash;&gt;-->
-                  <!--              <span class="px-1">{{ __('reward') }}:</span>-->
-                  <!--              <span class="px-1">{{ $page.props.site_view_meta_reward }} {{ __('meta') }}</span>-->
-                  <!--            </div>-->
-                  <div class="flex items-center">
-                    <!--              <EyeIcon class="w-4 h-4"/>-->
-                    <!--              <span class="px-1">{{ __('location') }}:</span>-->
-                    <!--              <span class="px-1">{{ getDuration(d.duration) }} </span>-->
-                  </div>
-
-                </div>
-              </Link>
-            </swiper-slide>
-
-
-          </swiper>
+          }}
         </div>
+        <swiper v-if=" data" class="w-full   "
+                :modules="modules"
+
+                :slides-per-view="'auto'"
+                :space-between="16"
+                :pagination="{ clickable: true }"
+                :scrollbar="{ draggable: true }"
+                @swiper=""
+                @slideChange=""
+        >
+          <swiper-slide v-for="(d,idx) in  data" class="max-w-[16rem]    ">
+            <Link :href="route('article',d.id)"
+                  class="   flex  my-2 flex-col relative items-stretch cursor-pointer hover:scale-[101%] duration-300 rounded-lg overflow-hidden shadow-lg">
+              <Image :src="route('storage.articles')+`/${d.id}.jpg`" classes="object-cover rounded-lg h-48   w-full"/>
+              <div class="absolute text-gray-500 rounded-full p-4 mx-4 top-[10rem] bg-white   shadow-lg">
+                <PencilIcon class="w-5 h-5 "/>
+              </div>
+              <div v-if="d.status=='active'"
+                   class="absolute  rounded-lg text-white bg-rose-500  p-1 px-2 m-2  end-0 top-0    shadow-lg">
+                {{ `${d.view_fee} ⭐️` }}
+              </div>
+
+              <div class="p-2 mt-4  text-gray-700">{{ cropText(d.title, 30) }}</div>
+              <div class="px-2 py-2 text-sm   text-gray-400">{{ cropText(d.author, 30) }}</div>
+              <div class="px-4 py-2 text-xs   text-gray-400">{{ getCategory(d.category_id) }}</div>
+              <hr class="border-gray-200  ">
+              <div class="flex justify-around  items-center p-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <!--              <EyeIcon class="w-4 h-4"/>-->
+                  <span class="px-1">{{ __('view') }}:</span>
+                  <span class="px-1">{{ d.view }}</span>
+                </div>
+                <div class=" border-s   py-4"></div>
+                <!--            <div v-if="!hasWallet()" class="flex items-center">-->
+                <!--              &lt;!&ndash;              <EyeIcon class="w-4 h-4"/>&ndash;&gt;-->
+                <!--              <span class="px-1">{{ __('reward') }}:</span>-->
+                <!--              <span class="px-1">{{ $page.props.site_view_meta_reward }} {{ __('meta') }}</span>-->
+                <!--            </div>-->
+                <div class="flex items-center">
+                  <!--              <EyeIcon class="w-4 h-4"/>-->
+                  <!--              <span class="px-1">{{ __('location') }}:</span>-->
+                  <!--              <span class="px-1">{{ getDuration(d.duration) }} </span>-->
+                </div>
+
+              </div>
+            </Link>
+          </swiper-slide>
+
+
+        </swiper>
       </div>
     </section>
     <LoadingIcon v-show="loading" ref="loader" type="linear"/>
@@ -247,7 +245,8 @@ export default {
             // this.data = this.data.concat(response.data.data);
             this.total = response.data.total;
             this.params.page = response.data.current_page + 1;
-            this.categories = response.data;
+            this.data = response.data.data;
+            // console.log(response.data);
           })
           .catch((error) => {
             this.error = this.getErrors(error);
@@ -290,7 +289,7 @@ export default {
   top: 0;
   left: 0;
   height: 3px;
-  background: #0076ff;
+  background: #32CD32;
   z-index: 9999;
   transition: width 300ms ease-out,
   opacity 150ms 150ms ease-in;

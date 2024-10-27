@@ -18,7 +18,8 @@
     >
       <swiper-slide v-for="(item,idx) in items" class="relative  max-w-[18rem]   ">
         <Link :href="route('article',item.id)" class="group  ">
-          <Image classes="h-full w-full" :src="route('storage.articles')+`/${item.id}.jpg`"
+          <Image classes="h-full w-full object-cover"
+                 :src="route('storage.articles')+`/${item.id}.jpg`"
                  :data-lity="route('storage.slides')+`/${item.id}.jpg`"></Image>
           <div
               class="absolute bottom-0  text-center h-24 group-hover:h-full transition-height duration-300 w-full bg-opacity-40 bg-primary-700">

@@ -15,7 +15,10 @@
         <!--      main section-->
 
         <div v-else-if="data" class=" flex flex-col ">
-          <div class="px-4 py-2 text-white bg-primary">{{ data.title }}</div>
+          <div
+              class="px-4 py-4 text-white   bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-500 to-lime-600">
+            {{ data.title }}
+          </div>
           <div v-if="data" class="      flex flex-col   ">
 
             <div class="grid grid-cols-1   items-center    h-64 w-full   relative">
@@ -23,12 +26,10 @@
                 <Image :src="route('storage.articles')+`/${data.id}.jpg`"
                        classes="object-cover    h-[inherit]     w-full"/>
                 <div
-                    class="text-sm    absolute  top-0 start-0 w-full h-full  bg-primary opacity-20  backdrop-blur">
+                    class="text-sm    absolute  top-0 start-0 w-full h-full  bg-primary-500 opacity-10  backdrop-blur">
                 </div>
               </div>
-              <p class="text-sm  my-2 absolute bottom-1 start-0 end-0 p-4 bg-[rgba(59,113,202,.8)] backdrop-blur">
-                <span class="text-white">{{ data.summary }}</span>
-              </p>
+
             </div>
 
             <p v-if="data.owner" class="text-sm bg-gray-200 p-4 rounded flex flex-wrap">
@@ -45,12 +46,9 @@
                 <span>{{ data.tags }}</span>
               </p>
             </div>
-
-            <div v-if="data.content" class="space-y-2 flex flex-col my-2   px-4">
-
-              <Article mode="view" ref="article"/>
-
-
+            <div class="border-b my-2 border-primary-200"></div>
+            <div v-if="data.content" class="container self-center space-y-2 flex flex-col my-2   px-4 ">
+              <div v-html="data.content"></div>
             </div>
 
           </div>
@@ -59,7 +57,7 @@
         </div>
       </div>
     </section>
-    <section>
+    <section v-if="false">
       <div class=" w-full px-3 my-8   flex  items-center justify-center">
         <PrimaryButton @click="$inertia.visit(route(($page.props.auth.user?'panel.article.create':'login')  ))"
                        class="mx-2 py-2  px-6  ">
@@ -124,13 +122,16 @@ export default {
   mounted() {
 
     this.data = this.$page.props.data;
-    this.$nextTick(() => {
-      this.$refs.article.setContent(this.data.content);
 
-    });
-
+    this.increaseView(this.data.id);
   },
-  methods: {},
+  methods: {
+    increaseView(id) {
+      window.axios.post(route('article.view'), {id: id},);
+
+
+    },
+  },
 
 }
 

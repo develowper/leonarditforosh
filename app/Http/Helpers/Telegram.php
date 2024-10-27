@@ -972,6 +972,22 @@ class Telegram
                     $msg .= " 📃 " . "توضیحات: " . $data->description . PHP_EOL;
 
                     break;
+                case 'message_created':
+                    if ($data->type == 'order')
+                        $msg .= " 🟩🟩🟩 " . "یک سفارش ثبت شد" . PHP_EOL;
+                    elseif ($data->type == 'referral')
+                        $msg .= " 🟦🟦🟦 " . "یک درخواست بازاریابی ثبت شد" . PHP_EOL;
+                    else
+                        $msg .= " 🟪🟪🟪 " . "یک پیام ثبت شد" . PHP_EOL;
+                    $msg .= " 🆔 " . "شناسه پیام: " . optional($data)->id . PHP_EOL;
+                    $msg .= " 👤 " . "نام " . PHP_EOL;
+                    $msg .= $data->fullname . PHP_EOL;
+                    $msg .= " 📱 " . "شماره تماس" . PHP_EOL;
+                    $msg .= $data->phone . PHP_EOL;
+                    $msg .= " 📃 " . "پیام" . PHP_EOL;
+                    $msg .= $data->description . PHP_EOL;
+
+                    break;
                 case 'error':
                     $msg = ' 📛 ' . ' خطای سیستم ' . PHP_EOL . $data;
                     break;

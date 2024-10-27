@@ -226,6 +226,13 @@ export default {
                 tmp.push(callbackFn(arr[i]));
             }
             return tmp;
+        },
+        scrollTo(el) {
+            window.scroll({
+                top: document.querySelector(el) ? document.querySelector(el).offsetTop : 0,
+
+                behavior: "smooth",
+            });
         }
     },
 

@@ -137,6 +137,11 @@ class Variable
     {
         return [
             ['key' => 'hero_main_page', 'value' => __('hero_main_page'), "created_at" => \Carbon\Carbon::now(),],
+            ['key' => 'social_telegram', 'value' => 'hasannejhad', "created_at" => \Carbon\Carbon::now(),],
+            ['key' => 'social_whatsapp', 'value' => '00989132258738', "created_at" => \Carbon\Carbon::now(),],
+            ['key' => 'social_email', 'value' => 'info@koodkabotar.com', "created_at" => \Carbon\Carbon::now(),],
+            ['key' => 'social_phone', 'value' => '09132258738', "created_at" => \Carbon\Carbon::now(),],
+            ['key' => 'social_address', 'value' => 'گیلان - رشت', "created_at" => \Carbon\Carbon::now(),],
 
         ];
     }

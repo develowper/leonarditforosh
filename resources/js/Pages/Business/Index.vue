@@ -203,7 +203,7 @@ export default {
   top: 0;
   left: 0;
   height: 3px;
-  background: #0076ff;
+  background: #32CD32;
   z-index: 9999;
   transition: width 300ms ease-out,
   opacity 150ms 150ms ease-in;

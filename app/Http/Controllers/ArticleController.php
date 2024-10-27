@@ -217,42 +217,22 @@ class ArticleController extends Controller
     {
         //disable ONLY_FULL_GROUP_BY
 //        DB::statement("SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
-
 //        $user = auth()->user();
         $search = $request->search;
         $page = $request->page ?: 1;
         $orderBy = 'id';
         $dir = $request->dir ?: 'DESC';
         $paginate = $request->paginate ?: 24;
-        /*        $query = Article::query();
-                $query = $query->select('id', 'title', 'duration', 'author', 'view', 'view_fee', 'status', 'category_id', 'created_at',);
-                $query = $query
-                    ->whereIn('status', ['active', 'need_charge'])
-                    ->whereLang(app()->getLocale());
+        $query = Article::query();
+        $query = $query->select('id', 'title', 'duration', 'author', 'view', 'status', 'created_at',);
+        $query = $query
+            ->whereIn('status', ['active',]);
 
-                if ($search)
-                    $query = $query->where('title', 'like', "%$search%");
+        if ($search)
+            $query = $query->where('title', 'like', "%$search%");
 
-                $query = $query
-                    ->orderBy('status', 'ASC')
-                    ->orderByRaw("IF(charge >= view_fee, view_fee, id) DESC");
-        */
-        return Category::with(['articles' => function ($query) use ($search, $paginate, $page) {
-            $query->select('id', 'title', 'duration', 'author', 'view', 'view_fee', 'status', 'category_id', 'created_at',)
-                ->whereIn('status', ['active', 'need_charge'])
-                ->whereLang(app()->getLocale())
-                ->orderBy('status', 'ASC')
-                ->orderByRaw("IF(charge >= view_fee, view_fee, id) DESC");
-            if ($search)
-                $query->where('title', 'like', "%$search%");
-
-        }])->get()->map(function ($e) use ($paginate) {
-            $e->setRelation('data', $e->articles->take($paginate));
-            unset  ($e->articles);
-            $e->total = $paginate;
-            $e->current_page = 1;
-            return $e;
-        });
+        $query = $query
+            ->orderBy('created_at', 'DESC');
 
 
 //        //re-enable ONLY_FULL_GROUP_BY
@@ -272,10 +252,13 @@ class ArticleController extends Controller
             $message = __('no_results');
             $link = route('article.index');
             $data = ['name' => __('no_results'),];
-        } else {
-            $data->view++;
-            $data->save();
         }
+        if ($data->content)
+            $data->content = json_decode($data->content);
+//        else {
+//            $data->view++;
+//            $data->save();
+//        }
 
         return Inertia::render('Article/View', [
             'error_message' => $message,
@@ -283,6 +266,15 @@ class ArticleController extends Controller
             'data' => $data,
             'categories' => Article::categories(),
         ]);
+
+    }
+
+    public
+    function increaseView(Request $request)
+    {
+
+        Article::where('id', $request->id)->increment('view');
+
 
     }
 }

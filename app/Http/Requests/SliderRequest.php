@@ -47,7 +47,7 @@ class SliderRequest extends FormRequest
             ]);
         if ($this->cmnd)
             $tmp = array_merge($tmp, [
-                'img' => ['sometimes', 'base64_image_size:' . Variable::BANNER_IMAGE_LIMIT_MB * 1024, 'base64_image_mime:' . implode(",", Variable::SITE_ALLOWED_MIMES)],
+                'img' => ['sometimes', 'base64_image_size:' . Variable::BANNER_IMAGE_LIMIT_MB * 1024, 'base64_image_mime:' . implode(",", Variable::BANNER_ALLOWED_MIMES)],
             ]);
         return $tmp;
     }
@@ -91,7 +91,7 @@ class SliderRequest extends FormRequest
 
             'img.required' => sprintf(__("validator.required"), __('image_cover')),
             'img.base64_image_size' => sprintf(__("validator.max_size"), __('image_cover'), Variable::SITE_IMAGE_LIMIT_MB),
-            'img.base64_image_mime' => sprintf(__("validator.invalid_format"), __('image_cover'), implode(",", Variable::SITE_ALLOWED_MIMES)),
+            'img.base64_image_mime' => sprintf(__("validator.invalid_format"), __('image_cover'), implode(",", Variable::BANNER_ALLOWED_MIMES)),
 
             'banner.required' => sprintf(__("validator.required"), __('banner_file')),
             'banner.mimes' => sprintf(__("validator.invalid_format"), __("banner_file"), implode(",", Variable::BANNER_ALLOWED_MIMES)),
