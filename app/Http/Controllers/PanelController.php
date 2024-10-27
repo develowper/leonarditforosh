@@ -61,7 +61,6 @@ class PanelController extends Controller
             'tickets' => array_map(function ($el) use ($tickets) {
                 return ['title' => $el['name'], 'value' => optional($tickets->where('status', $el['name'])->first())->count ?? 0];
             }, Variable::TICKET_STATUSES),
-            'items' => $this->ownedItemsCount($user->id),
 
         ];
 
