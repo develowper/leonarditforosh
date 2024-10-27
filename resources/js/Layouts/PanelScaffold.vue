@@ -51,7 +51,7 @@
             </button>
 
             <!-- Brand -->
-            <Link :href="route('/')"
+            <Link :href="route('/')" target="_blank"
                   class="inline-block rounded bg-primary-100 p-2 hover:bg-primary-50 text-md font-bold tracking-wider   text-primary-500">
               {{ __('site_view') }}
             </Link>
