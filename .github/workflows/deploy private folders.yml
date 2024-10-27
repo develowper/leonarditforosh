@@ -28,3 +28,4 @@ jobs:
             **/.**
             public/build/**
             public/hot
+            resources/**
