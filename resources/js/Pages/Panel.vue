@@ -117,7 +117,7 @@
 
 
         <!-- Charts -->
-        <div class="grid-cols-1  px-4 space-y-2 gap-2     xl:grid-cols-2">
+        <div v-if="false" class="grid-cols-1  px-4 space-y-2 gap-2     xl:grid-cols-2">
           <!-- Bar chart card -->
           <div class=" bg-white rounded-md"
                x-data="{ isOn: false }">
