@@ -20,7 +20,7 @@
         <Link :href="route('article',item.id)" class="group  ">
           <Image classes="h-full w-full object-cover"
                  :src="route('storage.articles')+`/${item.id}.jpg`"
-                 :data-lity="route('storage.slides')+`/${item.id}.jpg`"></Image>
+          ></Image>
           <div
               class="absolute bottom-0  text-center h-24 group-hover:h-full transition-height duration-300 w-full bg-opacity-40 bg-primary-700">
             <div v-if="item.title || item.description" class=" text-white my-4 p-2  ">
