@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Helpers\SMSHelper;
 use App\Http\Helpers\Util;
+use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -45,9 +46,9 @@ class MainController extends Controller
 
     public function viewPage(Request $request, $slug)
     {
-        $page=Page
+        $page = Page::where('slug', $slug)->first();
         return Inertia::render("$page", [
-
+            'page' => $page,
         ]);
     }
 }
