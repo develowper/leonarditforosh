@@ -166,7 +166,9 @@
         </swiper>
       </div>
     </section>
-    <LoadingIcon v-show="loading" ref="loader" type="linear"/>
+    <div ref="loader">
+      <LoadingIcon v-show="loading" ref="loader" type="linear"/>
+    </div>
   </Scaffold>
 
 </template>
@@ -226,7 +228,7 @@ export default {
   setup(props) {
 
   }, mounted() {
-    // this.setScroll(this.$refs.loader.$el);
+    this.setScroll(this.$refs.loader);
     this.getData();
   },
   methods: {
@@ -246,8 +248,9 @@ export default {
             // this.data = this.data.concat(response.data.data);
             this.total = response.data.total;
             this.params.page = response.data.current_page + 1;
-            this.data = response.data.data;
+            this.data = this.data.concat(response.data.data);
             // console.log(response.data);
+
           })
           .catch((error) => {
             this.error = this.getErrors(error);
@@ -267,9 +270,7 @@ export default {
         let bottom_of_element = el.offsetTop + el.offsetHeight;
         let bottom_of_screen = window.pageYOffset + window.innerHeight;
         let top_of_screen = window.pageYOffset;
-
         if ((bottom_of_screen + 300 > top_of_element) && (top_of_screen < bottom_of_element + 200) && !this.loading) {
-
           this.getData();
           // scrolled = true;
 //                        console.log('visible')
