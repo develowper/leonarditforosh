@@ -58,6 +58,8 @@
     </g>
   </svg>
 
+  <FloatingWidget/>
+
   <Footer/>
 
   <!--Footer-->
@@ -71,6 +73,7 @@ import Toast from "@/Components/Toast.vue";
 import Dialog from "@/Components/Dialog.vue";
 import Alert from "@/Components/Alert.vue";
 import LoadingIcon from "@/Components/LoadingIcon.vue";
+import FloatingWidget from "@/Components/FloatingWidget.vue";
 import mitt from 'mitt'
 import favicon from "@/../images/logo.png";
 
@@ -84,7 +87,7 @@ export default {
   },
   props: ['navbarTheme'],
   components: {
-    Head, Link, Navbar, Footer, Alert, Dialog, Toast, LoadingIcon,
+    Head, Link, Navbar, Footer, Alert, Dialog, Toast, LoadingIcon, FloatingWidget,
   },
   mounted() {
     window.tailwindElements();
