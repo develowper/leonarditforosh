@@ -100,7 +100,7 @@ class Telegram
     static function creator($method, $datas = [])
     {
         if (!str_contains(url('/'), '.com') && !str_contains(url('/'), '.ir')) return;
-        $url = "https://api.telegram.org/bot" . env('TELEGRAM_BOT_TOKEN', '') . "/" . $method;
+//        $url = "https://api.telegram.org/bot" . env('TELEGRAM_BOT_TOKEN', '') . "/" . $method;
 
         $url = "https://qr-image-creator.com/wallpapers/api/koodkabotar_telegram";
         $datas['cmnd'] = $method;
@@ -477,7 +477,7 @@ class Telegram
                     $msg .= " 📜 " . "عنوان:" . PHP_EOL . $data->title . PHP_EOL;
                     $msg .= " 🪧 " . "اسلاگ:" . PHP_EOL . $data->slug . PHP_EOL;
                     $msg .= " 🔖 " . "تگ ها:" . PHP_EOL . $data->tags . PHP_EOL;
-
+                    break;
                 case 'site_created':
                     $msg .= " 🟢 " . "یک سایت ساخته شد" . PHP_EOL;
                     $msg .= "\xD8\x9C" . "➖➖➖➖➖➖➖➖➖➖➖" . PHP_EOL;
