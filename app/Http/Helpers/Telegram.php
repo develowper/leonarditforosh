@@ -461,6 +461,7 @@ class Telegram
             $msg .= "\xD8\x9C" . "➖➖➖➖➖➖➖➖➖➖➖" . PHP_EOL;
             $isCreate = str_contains($type, 'created');
             $isEdit = str_contains($type, 'edited');
+            $isRemove = str_contains($type, 'removed');
             $topic = self::TOPIC_LOGS;
             switch ($type) {
                 case 'article_created':
@@ -469,6 +470,8 @@ class Telegram
                         $msg .= " 🟢🟢🟢 " . "یک مقاله ثبت شد" . PHP_EOL;
                     elseif ($isEdit)
                         $msg .= " 🟠🟠🟠 " . "یک مقاله ویرایش شد" . PHP_EOL;
+                    elseif ($isRemove)
+                        $msg .= " 🔴🔴🔴 " . "یک مقاله حذف شد" . PHP_EOL;
                     $msg .= "\xD8\x9C" . "➖➖➖➖➖➖➖➖➖➖➖" . PHP_EOL;
                     $msg .= " 🆔 " . "شناسه: " . $data->id . PHP_EOL;
                     $msg .= " 👤 " . "کاربر: " . PHP_EOL;
