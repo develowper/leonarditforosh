@@ -55,7 +55,7 @@
           <a v-if="$page.props.socials.telegram" target="_blank" :href="$page.props.socials.telegram"
              class="mx-2 text-primary-700 dark:text-neutral-200">
             <svg
-                class="h-5 w-5"
+                class="h-6 w-6"
                 fill="currentColor"
                 viewbox="0 0 24 24"
                 version="1.1"
