@@ -104,7 +104,7 @@ class ArticleController extends Controller
                     Telegram::log(null, 'article_removed', $data);
                     Storage::delete("public/" . Variable::IMAGE_FOLDERS[Article::class] . "/$id.jpg");
 
-                    $data->remove();
+                    $data->delete();
 
                     return response()->json(['message' => __('updated_successfully')], $successStatus);
 
