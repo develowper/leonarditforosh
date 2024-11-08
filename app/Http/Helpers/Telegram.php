@@ -482,6 +482,24 @@ class Telegram
                     $msg .= " 🪧 " . "اسلاگ:" . PHP_EOL . $data->slug . PHP_EOL;
                     $msg .= " 🔖 " . "تگ ها:" . PHP_EOL . $data->tags . PHP_EOL;
                     break;
+                case 'page_created':
+                case 'page_edited':
+                case 'page_removed':
+                    if ($isCreate)
+                        $msg .= " 🟢🟢🟢 " . "یک صفحه ثبت شد" . PHP_EOL;
+                    elseif ($isEdit)
+                        $msg .= " 🟠🟠🟠 " . "یک صفحه ویرایش شد" . PHP_EOL;
+                    elseif ($isRemove)
+                        $msg .= " 🔴🔴🔴 " . "یک صفحه حذف شد" . PHP_EOL;
+                    $msg .= "\xD8\x9C" . "➖➖➖➖➖➖➖➖➖➖➖" . PHP_EOL;
+                    $msg .= " 🆔 " . "شناسه: " . $data->id . PHP_EOL;
+                    $msg .= " 👤 " . "کاربر: " . PHP_EOL;
+                    $msg .= ($us->fullname) . PHP_EOL;
+                    $msg .= "\xD8\x9C" . "➖➖➖➖➖➖➖➖➖➖➖" . PHP_EOL;
+                    $msg .= " 📜 " . "عنوان:" . PHP_EOL . $data->title . PHP_EOL;
+                    $msg .= " 🪧 " . "اسلاگ:" . PHP_EOL . $data->slug . PHP_EOL;
+                    $msg .= " 🔖 " . "تگ ها:" . PHP_EOL . $data->tags . PHP_EOL;
+                    break;
                 case 'site_created':
                     $msg .= " 🟢 " . "یک سایت ساخته شد" . PHP_EOL;
                     $msg .= "\xD8\x9C" . "➖➖➖➖➖➖➖➖➖➖➖" . PHP_EOL;

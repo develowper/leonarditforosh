@@ -46,8 +46,11 @@ class MainController extends Controller
 
     public function viewPage(Request $request, $slug)
     {
-        $page = Page::where('slug', $slug)->first();
-        return Inertia::render("$page", [
+        $page = Page::where('slug', $slug)->firstOrNew();
+        if (!$page->id) {
+            $page->title = __('no_results');
+        }
+        return Inertia::render("Page", [
             'page' => $page,
         ]);
     }

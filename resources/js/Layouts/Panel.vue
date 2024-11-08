@@ -122,6 +122,12 @@
                   <NewspaperIcon class="w-5 h-5 mx-1"/>
                   {{ __('articles') }}
                 </Link>
+                <Link :href="route('panel.admin.page.index')" role="menuitem"
+                      :class="{'bg-primary-50 text-primary-500 border-primary-500':menuIsActive ( 'panel.admin.page.*' )}"
+                      class="flex  text-gray-500 border-s-2 hover:border-primary-500  items-center p-2   text-sm  transition-all duration-200   hover:text-primary-700 hover:bg-primary-50">
+                  <ArchiveBoxIcon class="w-5 h-5 mx-1"/>
+                  {{ __('pages') }}
+                </Link>
 
 
               </li>
@@ -279,6 +285,7 @@ import {
   ArrowsRightLeftIcon,
   BriefcaseIcon,
   RectangleStackIcon,
+  ArchiveBoxIcon,
 } from "@heroicons/vue/24/outline";
 import {
   QuestionMarkCircleIcon
@@ -366,6 +373,7 @@ export default {
     ArrowsRightLeftIcon,
     BriefcaseIcon,
     RectangleStackIcon,
+    ArchiveBoxIcon,
   },
   methods: {
     delay(time) {

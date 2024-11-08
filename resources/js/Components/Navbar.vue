@@ -25,9 +25,11 @@
             <Link :href="route('article.index')" class="nav-item" :class="navClasses('article')">
               {{ __('articles') }}
             </Link>
-            <button @click="scrollTo('footer') " class="nav-item " :class="navClasses('page.contact_us')">
-              {{ __('contact_us') }}
-            </button>
+
+            <Link v-for="page in $page.props.pages" :href="'/'+page.slug" class="nav-item "
+                  :class="navClasses(page.slug)">
+              {{ page.title }}
+            </Link>
             <!--            <Link :href="route('page.contact_us')" class="nav-item " :class="navClasses('page.contact_us')">-->
             <!--              {{ __('contact_us') }}-->
             <!--            </Link>-->
@@ -76,10 +78,14 @@
       <Link :href="route('article.index')" class="nav-ite" :class="navClasses('article')">
         {{ __('articles') }}
       </Link>
-      <button @click="scrollTo('footer') " class="nav-item " :class="navClasses('page.contact_us')">
-        {{ __('contact_us') }}
-      </button>
-<!--      <Link :href="route('page.contact_us')" class="nav-ite " :class="navClasses('page.contact_us')">-->
+      <Link v-for="page in $page.props.pages" :href="'/'+page.slug" class="nav-item "
+            :class="navClasses(page.slug)">
+        {{ page.title }}
+      </Link>
+      <!--      <button @click="scrollTo('footer') " class="nav-item " :class="navClasses('page.contact_us')">-->
+      <!--        {{ __('contact_us') }}-->
+      <!--      </button>-->
+      <!--      <Link :href="route('page.contact_us')" class="nav-ite " :class="navClasses('page.contact_us')">-->
       <!--        {{ __('contact_us') }}-->
       <!--      </Link>-->
     </div>

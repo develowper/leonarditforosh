@@ -12,6 +12,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PodcastController;
@@ -38,6 +39,7 @@ use App\Models\Business;
 use App\Models\Category;
 use App\Models\County;
 use App\Models\Notification;
+use App\Models\Page;
 use App\Models\Podcast;
 use App\Models\Province;
 use App\Models\Setting;
@@ -227,6 +229,23 @@ Route::middleware(['auth:sanctum',
         Route::get('article/search', [ArticleController::class, 'searchPanel'])->name('panel.admin.article.search');
         Route::patch('article/update', [ArticleController::class, 'update'])->name('panel.admin.article.update');
         Route::get('article/{article}', [ArticleController::class, 'edit'])->name('panel.admin.article.edit');
+
+        PanelController::makeInertiaRoute('get', 'page/index', 'panel.admin.page.index', 'Panel/Admin/Page/Index',
+            [
+                'categories' =>  Page::categories('parents'),
+                'statuses' => Variable::STATUSES
+            ]
+        );
+        PanelController::makeInertiaRoute('get', 'page/create', 'panel.admin.page.create', 'Panel/Admin/Page/Create',
+            [
+                'statuses' => Variable::STATUSES,
+            ]
+        );
+        Route::post('page/create', [PageController::class, 'create'])->name('panel.admin.page.create');
+        Route::get('page/search', [PageController::class, 'searchPanel'])->name('panel.admin.page.search');
+        Route::patch('page/update', [PageController::class, 'update'])->name('panel.admin.page.update');
+        Route::get('page/{article}', [PageController::class, 'edit'])->name('panel.admin.page.edit');
+
 
         Route::patch('message/update', [MessageController::class, 'update'])->name('panel.admin.message.update');
         Route::post('message/create', [MessageController::class, 'create'])->name('panel.admin.message.create');
