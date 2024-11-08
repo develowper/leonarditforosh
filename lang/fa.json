@@ -534,6 +534,7 @@
   "complete_and_add_to_operator_wallet?": "مبلغ به کیف پول اپراتور واریز و آیتم تکمیل خواهد شد",
   "complete_project_and_pay_after_admin_review?": "پروژه تکمیل و پس از بازدید ادمین، مبلغ به کیف پول شما واریز خواهد شد",
   "create_article_for_this_project?": "از ساخت مقاله اطمینان دارید؟",
+  "delete_project?": "از حذف مقاله اطمینان دارید؟",
   "only_admin_can_do_this": "این عملیات فقط برای ادمین مجاز است",
   "project_is_cancel_or_done": "پروژه نباید در حالت لغو یا تکمیل شده باشد",
   "project_has_article_before": "برای این پروژه مقاله ساخته شده است",

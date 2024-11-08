@@ -99,6 +99,10 @@ class ArticleController extends Controller
                         $data->save();
                     }
                     return response()->json(['message' => __('updated_successfully_and_active_after_review')], $successStatus);
+                case  'delete-article' :
+                    Storage::delete("public/" . Variable::IMAGE_FOLDERS[Article::class] . "/$id.jpg");
+
+                    $data->remove();
 
             }
         } elseif ($data) {
@@ -127,7 +131,8 @@ class ArticleController extends Controller
 //                dd($request->all());
                 Telegram::log(null, 'article_edited', $data);
             } else    $res = ['flash_status' => 'danger', 'flash_message' => __('response_error')];
-            return back()->with($res);
+//            return back()->with($res);
+            return to_route('panel.admin.article.index')->with($res);
         }
 
         return response()->json($response, $errorStatus);
