@@ -9,6 +9,7 @@ use App\Models\BannerTransaction;
 use App\Models\Business;
 use App\Models\BusinessTransaction;
 use App\Models\Message;
+use App\Models\Page;
 use App\Models\Podcast;
 use App\Models\PodcastTransaction;
 use App\Models\Setting;
@@ -84,6 +85,7 @@ class Variable
         Ticket::class => 'tickets',
         User::class => 'users',
         Slider::class => 'slides',
+        Page::class => 'pages',
     ];
     const NOTIFICATION_TYPES = [
         "business_approve",

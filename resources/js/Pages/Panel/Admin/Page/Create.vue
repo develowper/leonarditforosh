@@ -237,7 +237,7 @@ export default {
   ,
   methods: {
     submit() {
-      this.img = this.$refs.imageCropper.getCroppedData();
+      // this.img = this.$refs.imageCropper.getCroppedData();
 
       this.form.content = this.$refs.editor.getData();
       this.form.uploading = false;
@@ -246,52 +246,32 @@ export default {
 
       // this.isLoading(true, this.form.progress ? this.form.progress.percentage : null);
 
-      this.form.post(route('panel.admin.page.create'), {
-        preserveScroll: false,
+      this.form
+          .post(route('panel.admin.page.create'), {
+            preserveScroll: false,
+            onSuccess: (data) => {
 
-        onSuccess: (data) => {
+              // else {
+              if (this.$page.props.flash.status)
+                this.showAlert(this.$page.props.flash.status, this.$page.props.flash.message);
+              //   this.form.reset();
+              // }
+            },
+            onError: () => {
 
-          if (!this.form.uploading) {
-            this.form.uploading = true;
-
-            this.form.transform((data) => ({
-              ...data,
-              uploading: true,
-              img: this.img,
-
-            }))
-                .post(route('panel.admin.page.create'), {
-                  preserveScroll: false,
-                  onSuccess: (data) => {
-
-                    // else {
-                    if (this.$page.props.flash.status)
-                      this.showAlert(this.$page.props.flash.status, this.$page.props.flash.message);
-                    //   this.form.reset();
-                    // }
-                  },
-                  onError: () => {
-
-                    this.showToast('danger', Object.values(this.form.errors).join("<br/>"));
-                  },
-                  onFinish: (data) => {
-                    // this.isLoading(false,);
-                  },
-                });
-          }
-          // else {
-          //   this.showAlert(this.$page.props.flash.status, this.$page.props.flash.message);
-          //   this.form.reset();
-          // }
-        },
-        onError: () => {
-          this.showToast('danger', Object.values(this.form.errors).join("<br/>"));
-        },
-        onFinish: (data) => {
-          // this.isLoading(false,);
-        },
-      });
+              this.showToast('danger', Object.values(this.form.errors).join("<br/>"));
+            },
+            onFinish: (data) => {
+              // this.isLoading(false,);
+            },
+          });
     }
+    // else {
+    //   this.showAlert(this.$page.props.flash.status, this.$page.props.flash.message);
+    //   this.form.reset();
+    // }
+
+
   }
   ,
   watch: {}

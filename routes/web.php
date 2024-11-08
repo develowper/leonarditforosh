@@ -90,6 +90,7 @@ Route::get('storage/banners')->name('storage.banners');
 Route::get('storage/articles')->name('storage.articles');
 Route::get('storage/tickets')->name('storage.tickets');
 Route::get('storage/slides')->name('storage.slides');
+Route::get('storage/pages')->name('storage.pages');
 
 Route::get('/', function (Request $request) {
     if ($r = $request->ref) {
@@ -232,7 +233,7 @@ Route::middleware(['auth:sanctum',
 
         PanelController::makeInertiaRoute('get', 'page/index', 'panel.admin.page.index', 'Panel/Admin/Page/Index',
             [
-                'categories' =>  Page::categories('parents'),
+                'categories' => Page::categories('parents'),
                 'statuses' => Variable::STATUSES
             ]
         );
@@ -323,7 +324,7 @@ Route::post('article/view', [ArticleController::class, 'increaseView'])->name('a
 Route::get('article/{article}-{slug}', [ArticleController::class, 'view'])->name('article');
 
 
-Route::get('{slug}', [MainController::class, 'viewPage']);
+Route::get('{slug}', [PageController::class, 'view']);
 
 Route::get('language/{language}', function ($language) {
     session()->put('locale', $language);

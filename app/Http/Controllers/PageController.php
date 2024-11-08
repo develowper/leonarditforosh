@@ -176,10 +176,10 @@ class PageController extends Controller
             $res = ['flash_status' => 'danger', 'flash_message' => __('user_is_blocked')];
             return back()->with($res);
         }
-        if (!$request->uploading) { //send again for uploading images
-
-            return back()->with(['resume' => true]);
-        }
+//        if (!$request->uploading) { //send again for uploading images
+//
+//            return back()->with(['resume' => true]);
+//        }
 
         $content = $request->get('content') ?? null;
         $duration = Util::estimateReadingTime($content);
@@ -198,9 +198,9 @@ class PageController extends Controller
         $page = Page::create($request->all());
 
         if ($page) {
-            $res = ['flash_status' => 'success', 'flash_message' => __('created_successfully_and_activete_after_review')];
-
-            Util::createImage($request->img, Variable::IMAGE_FOLDERS[Page::class], $page->id);
+            $res = ['flash_status' => 'success', 'flash_message' => __('created_successfully')];
+            if ($request->img)
+                Util::createImage($request->img, Variable::IMAGE_FOLDERS[Page::class], $page->id);
 
 //            SMSHelper::deleteCode($phone);
             Telegram::log(null, 'page_created', $page);
@@ -258,30 +258,17 @@ class PageController extends Controller
     }
 
     public
-    function view(Request $request, $page, $slug)
+    function view(Request $request, $slug)
     {
-        $message = null;
-        $link = null;
 
-        $data = Page::where('id', $page)->with('owner:id,fullname,phone')->first();
-
-        if (!$data || !in_array($data->status, ['active',])) {
-            $message = __('no_results');
-            $link = route('page.index');
-            $data = ['name' => __('no_results'),];
+        $page = Page::where('slug', $slug)->firstOrNew();
+        if ($page->content)
+            $page->content = json_decode($page->content);
+        if (!$page->id) {
+            $page->title = __('no_results');
         }
-        if ($data->content)
-            $data->content = json_decode($data->content);
-//        else {
-//            $data->view++;
-//            $data->save();
-//        }
-
-        return Inertia::render('Page/View', [
-            'error_message' => $message,
-            'error_link' => $link,
-            'data' => $data,
-            'categories' => Page::categories(),
+        return Inertia::render("Page", [
+            'page' => $page,
         ]);
 
     }

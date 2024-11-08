@@ -231,7 +231,8 @@
               </td>
               <td
                   class="flex  items-center px-6 py-4 text-gray-900 whitespace-nowrap">
-                <Image class="w-10 h-10 cursor-pointer rounded-full" :src="`${route('storage.pages')}/${d.id}.jpg`"
+                <Image v-if="false" class="w-10 h-10 cursor-pointer rounded-full"
+                       :src="`${route('storage.pages')}/${d.id}.jpg`"
                        :data-lity="`${route('storage.pages')}/${d.id}.jpg`"
                        :alt="cropText(d.title,5)"/>
                 <Link class="px-3 hover:text-gray-500" :href="route('panel.admin.page.edit',d.id)">

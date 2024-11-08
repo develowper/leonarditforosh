@@ -2,7 +2,7 @@
 
   <Panel>
     <template v-slot:header>
-      <title>{{__('edit_article')}}</title>
+      <title>{{__('edit_page')}}</title>
     </template>
 
 
@@ -12,7 +12,7 @@
           class="flex items-center justify-start px-4 py-2 text-primary-500 border-b md:py-4">
         <PencilSquareIcon class="h-7 w-7 mx-3"/>
 
-        <h1 class="text-2xl font-semibold">{{ __('edit_article') }}</h1>
+        <h1 class="text-2xl font-semibold">{{ __('edit_page') }}</h1>
 
       </div>
 
@@ -27,15 +27,7 @@
               class="flex flex-col mx-2   col-span-2 w-full     px-2"
           >
             <div class="flex-col   m-2 items-center rounded-lg max-w-xs  w-full mx-auto    ">
-              <div class="my-2">
-                <ImageUploader :replace="false"
-                               :preload="route('storage.articles')+`/${$page.props.data.id}.jpg`"
-                               mode="edit" :for-id="$page.props.data.id"
-                               :link="route('panel.admin.article.update')"
-                               ref="imageCropper" :label="__('image_cover_jpg')" cropRatio="1.25" id="img"
-                               height="10" class="grow "/>
-                <InputError class="mt-1 " :message="form.errors.img"/>
-              </div>
+
 
             </div>
             <form @submit.prevent="submit">
@@ -103,7 +95,7 @@
                 </TextInput>
 
               </div>
-              <div class="my-2">
+              <div v-if="false" class="my-2">
                 <TextInput
                     id="author"
                     type="text"
@@ -138,10 +130,10 @@
               </div>
 
 
-              <!--                article content-->
+              <!--                page content-->
               <div class="my-2">
                 <TextEditor mode="edit" lang="fa" :id="`editor`" :preload="data.content"
-                            :ref="`text`" :label="__('article_content')"
+                            :ref="`text`" :label="__('page_content')"
                             :error="form.errors.content"/>
 
               </div>
@@ -322,7 +314,7 @@ export default {
       //   let tmp = this.$refs.imageCropper[i].getCroppedData();
       //   if (tmp) this.images.push(tmp);
       // }
-      this.form.patch(route('panel.admin.article.update'), {
+      this.form.patch(route('panel.admin.page.update'), {
         preserveScroll: false,
 
         onSuccess: (data) => {

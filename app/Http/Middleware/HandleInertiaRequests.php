@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Http\Helpers\Variable;
+use App\Models\Page;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -75,6 +76,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'footer_title' => Setting::getValue('footer_title'),
             'site_description' => Setting::getValue('site_description'),
+            'pages' => Page::where('status', 'active')->select('id', 'slug', 'title')->get(),
         ]);
     }
 }

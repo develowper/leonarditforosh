@@ -7,6 +7,7 @@ use App\Models\Article;
 use App\Models\Banner;
 use App\Models\Business;
 use App\Models\Notification;
+use App\Models\Page;
 use App\Models\Podcast;
 use App\Models\Project;
 use App\Models\ProjectItem;
@@ -92,6 +93,8 @@ class UserPolicy
         switch ($item) {
             case User::class  :
             case Notification::class  :
+            case Article::class  :
+            case Page::class  :
                 $res = in_array($user->role, ['ad',]);
                 break;
             case Site::class  :
@@ -99,7 +102,6 @@ class UserPolicy
             case Podcast::class  :
             case Video::class  :
             case Banner::class  :
-            case Article::class  :
             case Transfer::class  :
             case Text::class  :
                 $res = in_array($user->role, ['us', 'ad',]);
@@ -133,10 +135,11 @@ class UserPolicy
             case $item instanceof Video :
             case $item instanceof Banner :
             case $item instanceof Text :
-                $res = in_array($user->role, ['ad',]) || $user->role == 'us' && (optional($item)->owner_id == $user->id || optional($item->projectItem)->operator_id == $user->id);
+            case $item instanceof Page :
+            case $item instanceof Article :
+                $res = in_array($user->role, ['ad',]) || $user->role == 'us' && (optional($item)->owner_id == $user->id);
             case $item instanceof Site :
             case $item instanceof Business :
-            case $item instanceof Article :
             case $item instanceof Notification :
             case $item instanceof Ticket :
             case $item instanceof Transfer :
@@ -174,15 +177,16 @@ class UserPolicy
             case $item instanceof Video  :
             case $item instanceof Podcast  :
             case $item instanceof Banner  :
+            case $item instanceof Page  :
+            case $item instanceof Article  :
                 $res = $user->role == 'us' && optional($item)->owner_id == $user->id || in_array($user->role, ['ad',]) || optional($item->projectItem)->operator_id == $user->id;
                 break;
             case $item instanceof Site  :
             case $item instanceof Business  :
-            case $item instanceof Article  :
             case $item instanceof Notification  :
             case $item instanceof Ticket  :
             case $item instanceof Transfer  :
-                 $res= $user->role == 'us' && optional($item)->owner_id == $user->id || in_array($user->role, ['ad',]);
+                $res = $user->role == 'us' && optional($item)->owner_id == $user->id || in_array($user->role, ['ad',]);
                 break;
         }
         if ($abort && empty($res))
