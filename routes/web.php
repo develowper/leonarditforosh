@@ -304,6 +304,8 @@ Route::post('article/view', [ArticleController::class, 'increaseView'])->name('a
 Route::get('article/{article}-{slug}', [ArticleController::class, 'view'])->name('article');
 
 
+Route::get('{slug}', [MainController::class, 'viewPage']);
+
 Route::get('language/{language}', function ($language) {
     session()->put('locale', $language);
     return;

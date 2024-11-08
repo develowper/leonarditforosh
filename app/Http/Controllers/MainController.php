@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
+use Inertia\Testing\Concerns\PageObject;
 
 class MainController extends Controller
 {
@@ -40,5 +41,13 @@ class MainController extends Controller
         return Inertia::render('ContactUs', [
         ]);
 
+    }
+
+    public function viewPage(Request $request, $slug)
+    {
+        $page=Page
+        return Inertia::render("$page", [
+
+        ]);
     }
 }
