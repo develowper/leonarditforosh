@@ -1,6 +1,6 @@
 <template>
   <div @click="toggleWidget" :class="toggle" id="animate-from-outside"
-       class="    fixed hover:cursor-pointer  bottom-[20%] h-fit  bg-primary-600 text-white  shadow-xl p-2 px-4 rounded-e-lg">
+       class="z-[1065]    fixed hover:cursor-pointer  bottom-[20%] h-fit  bg-primary-600 text-white  shadow-xl p-2 px-4 rounded-e-lg">
     <div class="flex items-center">
       <div>
         <div>{{ __('counseling') }}</div>
