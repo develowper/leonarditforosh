@@ -100,7 +100,7 @@ class ArticleController extends Controller
                     }
                     return response()->json(['message' => __('updated_successfully_and_active_after_review')], $successStatus);
                 case  'delete-article' :
-                    
+
                     Telegram::log(null, 'article_removed', $data);
                     Storage::delete("public/" . Variable::IMAGE_FOLDERS[Article::class] . "/$id.jpg");
 
