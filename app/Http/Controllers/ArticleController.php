@@ -80,6 +80,13 @@ class ArticleController extends Controller
                     Util::createImage($request->img, Variable::IMAGE_FOLDERS[Article::class], $id);
 
                     return response()->json(['message' => __('updated_successfully')], $successStatus);
+                case  'delete-img' :
+
+                    if (!$request->id) //  add extra image
+                        return response()->json(['errors' => [__('file_not_exists')], 422]);
+                    Storage::delete("public/" . Variable::IMAGE_FOLDERS[Article::class] . "/$id.jpg");
+
+                    return response()->json(['message' => __('updated_successfully')], $successStatus);
 
                 case  'upload-article' :
 
@@ -104,9 +111,10 @@ class ArticleController extends Controller
             $request->merge([
                 'status' => $request->status,
 //                'is_active' => false,
+
                 'duration' => $duration,
                 'content' => $content,
-                'slug' => str_slug($request->title),
+                'slug' => $request->slug ?? str_slug($request->title),
             ]);
 
 
@@ -172,7 +180,7 @@ class ArticleController extends Controller
 
         $request->merge([
             'owner_id' => $user->id,
-            'slug' => str_slug($request->title),
+            'slug' => $request->slug ?? str_slug($request->title),
             'content' => $content,
             'duration' => $duration,
             'status' => 'active',
@@ -197,12 +205,12 @@ class ArticleController extends Controller
         $user = $request->user();
         $search = $request->search;
         $page = $request->page ?: 1;
-        $orderBy = $request->order_by ?: 'id';
+        $orderBy = $request->order_by ?: 'updated_at';
         $dir = $request->dir ?: 'DESC';
         $paginate = $request->paginate ?: 24;
 
         $query = Article::query();
-        $query = $query->select('id', 'title', 'author', 'status', 'view');
+        $query = $query->select('id', 'title', 'created_at', 'updated_at', 'author', 'status', 'view');
         if ($user->role == 'us')
             $query = $query->where('owner_id', $user->id);
 
@@ -224,7 +232,7 @@ class ArticleController extends Controller
         $dir = $request->dir ?: 'DESC';
         $paginate = $request->paginate ?: 24;
         $query = Article::query();
-        $query = $query->select('id', 'title', 'duration', 'author', 'view', 'status', 'created_at',);
+        $query = $query->select('id', 'title', 'duration', 'author', 'view', 'status', 'created_at', 'slug');
         $query = $query
             ->whereIn('status', ['active',]);
 
@@ -241,7 +249,7 @@ class ArticleController extends Controller
     }
 
     public
-    function view(Request $request, $article)
+    function view(Request $request, $article, $slug)
     {
         $message = null;
         $link = null;

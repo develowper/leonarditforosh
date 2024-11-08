@@ -98,7 +98,7 @@ Route::get('/', function (Request $request) {
         'canRegister' => Route::has('register'),
         'heroText' => \App\Models\Setting::getValue('hero_main_page'),
         'slides' => \App\Models\Slider::where('is_active', true)->get(),
-        'articles' => \App\Models\Article::where('status', 'active')->orderBy('id', 'desc')->take(12)->get(),
+        'articles' => \App\Models\Article::where('status', 'active')->select('id', 'title', 'slug')->orderBy('id', 'desc')->take(12)->get(),
         'section1Header' => __('our_services'),
         'section1' => [
             ['header' => 'تحویل در محل', 'sub' => 'با پرداخت کرایه رفت و برگشت ماشین. کل بار را بخرید و در محل پول آن را پرداخت کنید', 'icon' => 'HomeModernIcon'],
@@ -117,7 +117,8 @@ Route::get('/', function (Request $request) {
         'counts' => [
             'users' => ['icon' => 'UsersIcon', 'count' => User::count()],
             'articles' => ['icon' => 'PencilIcon', 'count' => Article::count()],
-        ]
+        ],
+
     ]);
 })->name('/');
 
@@ -300,7 +301,7 @@ Route::get('/exchange', [ExchangeController::class, 'index'])->name('exchange.in
 Route::get('/articles', [ArticleController::class, 'index'])->name('article.index');
 Route::get('/article/search', [ArticleController::class, 'search'])->name('article.search');
 Route::post('article/view', [ArticleController::class, 'increaseView'])->name('article.view');
-Route::get('article/{article}', [ArticleController::class, 'view'])->name('article');
+Route::get('article/{article}-{slug}', [ArticleController::class, 'view'])->name('article');
 
 
 Route::get('language/{language}', function ($language) {

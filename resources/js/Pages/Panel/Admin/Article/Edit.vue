@@ -28,7 +28,7 @@
           >
             <div class="flex-col   m-2 items-center rounded-lg max-w-xs  w-full mx-auto    ">
               <div class="my-2">
-                <ImageUploader :replace="$page.props.max_images_limit==1"
+                <ImageUploader :replace="false"
                                :preload="route('storage.articles')+`/${$page.props.data.id}.jpg`"
                                mode="edit" :for-id="$page.props.data.id"
                                :link="route('panel.admin.article.update')"
@@ -78,6 +78,25 @@
                   <template v-slot:prepend>
                     <div class="p-3">
                       <Bars2Icon class="h-5 w-5"/>
+                    </div>
+                  </template>
+
+                </TextInput>
+
+              </div>
+              <div class="my-2">
+                <TextInput
+                    id="slug"
+                    type="text"
+                    :placeholder="__('slug')"
+                    classes="  "
+                    v-model="form.slug"
+                    autocomplete="slug"
+                    :error="form.errors.slug"
+                >
+                  <template v-slot:prepend>
+                    <div class="p-3">
+                      <BookOpenIcon class="h-5 w-5"/>
                     </div>
                   </template>
 
@@ -177,6 +196,7 @@ import {
   ChatBubbleBottomCenterTextIcon,
   PencilIcon,
   XMarkIcon,
+  BookOpenIcon,
 } from "@heroicons/vue/24/outline";
 import {QuestionMarkCircleIcon,} from "@heroicons/vue/24/solid";
 import Checkbox from '@/Components/Checkbox.vue';
@@ -220,6 +240,7 @@ export default {
         summary: '',
         message: '',
         status: this.$page.props.data.status,
+        slug: null,
 
       }),
       img: null,
@@ -261,6 +282,7 @@ export default {
     PencilIcon,
     UserSelector,
     XMarkIcon,
+    BookOpenIcon,
   },
   created() {
 
@@ -270,6 +292,7 @@ export default {
     // console.log(this.data.content);
 
 
+    this.form.slug = this.data.slug;
     this.form.title = this.data.title;
     this.form.author = this.data.author;
     this.form.phone = this.data.phone;

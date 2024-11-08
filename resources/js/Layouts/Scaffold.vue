@@ -5,8 +5,8 @@
   <main :dir="dir()" class="min-h-screen ">
     <Head>
       <meta name="author" :content="__('app_name')">
+      <meta name="description" :content="$page.props.site_description">
       <link rel="shortcut icon" type="image/x-icon" :href="favicon"/>
-
       <slot name="header"/>
     </head>
     <Alert ref="alert"/>

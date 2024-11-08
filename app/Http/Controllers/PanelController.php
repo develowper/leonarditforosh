@@ -76,7 +76,7 @@ class PanelController extends Controller
         $tickets = Ticket::select('status', DB::raw('COUNT(*) AS count'))->groupBy('status')->get();
         $messages = Message::select('type', DB::raw('COUNT(*) AS count'))->groupBy('type')->get();
         $users = User::select('id', 'is_active', 'is_block', 'role')->get();
-
+        $articles = Article::groupBy('status')->select('status', DB::raw('COUNT(*) as count'))->get();
 
         $params = [
             'users' => [['color' => 'primary', 'title' => __('admin'), 'count' => $users->whereIn('role', ['ad', 'go'])->count(),],
@@ -91,7 +91,9 @@ class PanelController extends Controller
             }, Variable::MESSAGE_STATUSES),
             'hasAdvertise' => true,
             'adminBalance' => Setting::getValue('iran_wallet'),
-
+            'articlesStat' => $articles->map(function ($e) {
+                return ['color' => $e->status == 'active' ? 'success' : 'danger', 'title' => __($e->status), 'count' => $e->count];
+            }),
 
 //            'projectItems' => array_map(function ($el) use ($projectItems) {
 //                return ['title' => $el['name'], 'value' => optional($projectItems->where('type', $el['name'])->first())->count ?? 0, 'color' => $el['color'],];

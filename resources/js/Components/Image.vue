@@ -2,6 +2,7 @@
 
   <img :src="url" :alt="alt" :class="classes+(loading?'   bg-gray-300 ':' ')"
        @loadstart="loading=true" @loadeddata="loading=false" @load="loading=false;"
+       v-bind:data-lity="maximize ?url: null  "
        @error="imageError  ">
 </template>
 
@@ -28,7 +29,7 @@ export default {
 
     }
   },
-  props: ['type', 'src', 'alt', 'classes'],
+  props: ['type', 'src', 'alt', 'classes', 'maximize'],
   methods: {
     imageError() {
       this.loading = false;

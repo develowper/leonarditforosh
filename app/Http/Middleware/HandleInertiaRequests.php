@@ -73,6 +73,8 @@ class HandleInertiaRequests extends Middleware
                 'email' => optional($socials->where('key', 'social_email')->first())->value,
                 'address' => optional($socials->where('key', 'social_address')->first())->value,
             ],
+            'footer_title' => Setting::getValue('footer_title'),
+            'site_description' => Setting::getValue('site_description'),
         ]);
     }
 }

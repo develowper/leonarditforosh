@@ -70,9 +70,10 @@
 
       <div
           class="   flex flex-wrap  justify-center gap-4">
-        <Link v-for="(d,idx) in data" :href="route('article',d.id)"
+        <Link v-for="(d,idx) in data" :href="route('article',{article:d.id,slug:d.slug ||d.id})"
               class="  flex-col relative items-stretch cursor-pointer hover:scale-[101%] duration-300 rounded-lg overflow-hidden shadow-lg">
-          <Image :src="route('storage.articles')+`/${d.id}.jpg`" classes="object-cover rounded-lg h-48   w-full"/>
+          <Image :alt="d.title" :src="route('storage.articles')+`/${d.id}.jpg`"
+                 classes="object-cover rounded-lg h-48   w-full"/>
           <div class="absolute text-gray-500 rounded-full p-4 mx-4 top-[10rem] bg-white   shadow-lg">
             <PencilIcon class="w-5 h-5 "/>
           </div>
@@ -124,7 +125,7 @@
                 @slideChange=""
         >
           <swiper-slide v-for="(d,idx) in  data" class="max-w-[16rem]    ">
-            <Link :href="route('article',d.id)"
+            <Link :href="route('article',{article:d.id,slug:d.slug || d.id})"
                   class="   flex  my-2 flex-col relative items-stretch cursor-pointer hover:scale-[101%] duration-300 rounded-lg overflow-hidden shadow-lg">
               <Image :src="route('storage.articles')+`/${d.id}.jpg`" classes="object-cover rounded-lg h-48   w-full"/>
               <div class="absolute text-gray-500 rounded-full p-4 mx-4 top-[10rem] bg-white   shadow-lg">

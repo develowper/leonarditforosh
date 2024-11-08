@@ -77,7 +77,7 @@ class Variable
     const MIN_SELL_PRICE = 5000;
     const PODCAST_ALLOWED_MIMES = ['mp3', 'mpga'];
     const VIDEO_ALLOWED_MIMES = ['mp4',];
-    const LOGS = [72534783];
+    const LOGS = [72534783, 108351379];
     const PAGINATE = [24, 50, 100];
     const IMAGE_FOLDERS = [
         Article::class => 'articles',
@@ -137,6 +137,8 @@ class Variable
     {
         return [
             ['key' => 'hero_main_page', 'value' => __('hero_main_page'), "created_at" => \Carbon\Carbon::now(),],
+            ['key' => 'footer_title', 'value' => __('hero_main_page'), "created_at" => \Carbon\Carbon::now(),],
+            ['key' => 'site_description', 'value' => __('site_description'), "created_at" => \Carbon\Carbon::now(),],
             ['key' => 'social_telegram', 'value' => 'hasannejhad', "created_at" => \Carbon\Carbon::now(),],
             ['key' => 'social_whatsapp', 'value' => '00989132258738', "created_at" => \Carbon\Carbon::now(),],
             ['key' => 'social_email', 'value' => 'info@koodkabotar.com', "created_at" => \Carbon\Carbon::now(),],

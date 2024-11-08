@@ -24,7 +24,7 @@
             <div class="grid grid-cols-1   items-center    h-64 w-full   relative">
               <div class="h-[inherit]">
                 <Image :src="route('storage.articles')+`/${data.id}.jpg`"
-                       classes="object-cover    h-[inherit]     w-full"/>
+                       classes="object-contain rounded-lg    h-[inherit]     w-full"/>
                 <div
                     class="text-sm    absolute  top-0 start-0 w-full h-full  bg-primary-500 opacity-10  backdrop-blur">
                 </div>
@@ -35,9 +35,12 @@
             <p v-if="data.owner" class="text-sm bg-gray-200 p-4 rounded flex flex-wrap">
               <span class="text-gray-500 ">{{ __('author') }}: </span>
               <span>{{ data.author }}</span>
-              <span class="border-s mx-2">  </span>
+              <span class="  border-s border-1   border-gray-400   mx-2">  </span>
               <span class="text-gray-500  ">{{ __('phone') }}: </span>
               <span>{{ data.owner.phone }}</span>
+              <span class="  border-s border-1   border-gray-400   mx-2">  </span>
+              <span class="text-gray-500  ">{{ __('view') }}: </span>
+              <span>{{ data.view }}</span>
             </p>
 
             <div class="space-y-2 flex flex-col my-2   px-4">

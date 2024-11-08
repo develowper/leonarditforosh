@@ -12,6 +12,16 @@ use Morilog\Jalali\Jalalian;
 
 class Telegram
 {
+    const LOGS = Variable::LOGS;
+    const BOT_ID = 7107078344;
+    const TOPIC_LOGS = 4;
+    const TOPIC_BUGS = 3;
+    const TOPIC_CHATS = 8;
+    const TOPIC_DESKTOP = 9;
+    const TOPIC_TRANSACTION = 7;
+    const TOPIC_ORDER = 6;
+    const TOPIC_FILE = 5;
+
     static function sendMessage($chat_id, $text, $mode = null, $reply = null, $keyboard = null, $disable_notification = false)
     {
         return self::creator('sendMessage', [
@@ -81,7 +91,7 @@ class Telegram
     static function logAdmins($msg, $mode = null)
     {
         $res = null;
-        foreach (Variable::LOGS as $log)
+        foreach (self::LOGS as $log)
             $res = self::sendMessage($log, $msg, $mode);
         return $res;
 
@@ -92,20 +102,8 @@ class Telegram
         if (!str_contains(url('/'), '.com') && !str_contains(url('/'), '.ir')) return;
         $url = "https://api.telegram.org/bot" . env('TELEGRAM_BOT_TOKEN', '') . "/" . $method;
 
-//        $ch = curl_init();
-//        curl_setopt($ch, CURLOPT_URL, $url);
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//        curl_setopt($ch, CURLOPT_POSTFIELDS, $datas);
-//        $res = curl_exec($ch);
-////        self::sendMessage(Helper::$logs[0], $res);
-//        if (curl_error($ch)) {
-//            self::sendMessage(Variable::LOGS[0], curl_error($ch));
-//            curl_close($ch);
-//            return (curl_error($ch));
-//        } else {
-//            curl_close($ch);
-//            return json_decode($res);
-//        }
+        $url = "https://qr-image-creator.com/wallpapers/api/koodkabotar_telegram";
+        $datas['cmnd'] = $method;
 
 
         $res = Http::asForm()->post($url, $datas);
@@ -461,8 +459,25 @@ class Telegram
             $time = $now->format('%A, %d %B %Y ⏰ H:i');
             $msg = "\xD8\x9C" . config('app.name') . PHP_EOL . $time . PHP_EOL;
             $msg .= "\xD8\x9C" . "➖➖➖➖➖➖➖➖➖➖➖" . PHP_EOL;
-
+            $isCreate = str_contains($type, 'created');
+            $isEdit = str_contains($type, 'edited');
+            $topic = self::TOPIC_LOGS;
             switch ($type) {
+                case 'article_created':
+                case 'article_edited':
+                    if ($isCreate)
+                        $msg .= " 🟢🟢🟢 " . "یک مقاله ثبت شد" . PHP_EOL;
+                    elseif ($isEdit)
+                        $msg .= " 🟠🟠🟠 " . "یک مقاله ویرایش شد" . PHP_EOL;
+                    $msg .= "\xD8\x9C" . "➖➖➖➖➖➖➖➖➖➖➖" . PHP_EOL;
+                    $msg .= " 🆔 " . "شناسه: " . $data->id . PHP_EOL;
+                    $msg .= " 👤 " . "کاربر: " . PHP_EOL;
+                    $msg .= ($us->fullname) . PHP_EOL;
+                    $msg .= "\xD8\x9C" . "➖➖➖➖➖➖➖➖➖➖➖" . PHP_EOL;
+                    $msg .= " 📜 " . "عنوان:" . PHP_EOL . $data->title . PHP_EOL;
+                    $msg .= " 🪧 " . "اسلاگ:" . PHP_EOL . $data->slug . PHP_EOL;
+                    $msg .= " 🔖 " . "تگ ها:" . PHP_EOL . $data->tags . PHP_EOL;
+
                 case 'site_created':
                     $msg .= " 🟢 " . "یک سایت ساخته شد" . PHP_EOL;
                     $msg .= "\xD8\x9C" . "➖➖➖➖➖➖➖➖➖➖➖" . PHP_EOL;
@@ -995,19 +1010,20 @@ class Telegram
                     $msg = $data;
             }
             if ($to) {
-//                self::sendMessage($to, $msg, null);
-                Bale::sendMessage($to, $msg, null);
-                Eitaa::logAdmins($msg, $type,);
+                self::sendMessage($to, $msg, null);
+//                Bale::sendMessage($to, $msg, null);
+//                Eitaa::logAdmins($msg, $type,);
             } else {
-//                self::logAdmins($msg, null);
-                Bale::logAdmins($msg, null);
-                Eitaa::logAdmins($msg, $type,);
+                self::logAdmins($msg, null);
+//                Bale::logAdmins($msg, null);
+//                Eitaa::logAdmins($msg, $type,);
             }
 
         } catch (\Exception $e) {
             try {
-                Bale::logAdmins($e->getMessage(), $type);
-                Eitaa::logAdmins($e->getMessage(), $type,);
+                self::logAdmins($msg, null);
+//                Bale::logAdmins($e->getMessage(), $type);
+//                Eitaa::logAdmins($e->getMessage(), $type,);
 //            return self::sendMessage(Variable::LOGS[0], $e->getMessage(), null);
             } catch (\Exception $e) {
             };

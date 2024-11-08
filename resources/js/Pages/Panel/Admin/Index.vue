@@ -130,6 +130,32 @@
             </div>
 
           </Link>
+          <!--          articles card-->
+          <Link :class="cardShadow" :href="route('panel.admin.article.index')"
+                class="flex hover:scale-[101%] transition duration-300 cursor-pointer   items-center justify-around   p-4 bg-white  rounded-lg">
+            <div class="flex flex-col grow">
+              <h6 class="text-xs font-bold   py-2 tracking-wider text-gray-500 uppercase">
+                {{ __('articles') }}
+              </h6>
+
+              <div class="justify-around flex  ">
+                                <span v-for="(m,idx) in articlesStat" class="align-middle flex  flex-col text-center  ">
+                                        <span
+                                            :class="`text-${m.color}-500`"
+                                            class="  text-xl font-semibold "> {{ m.count }}</span>
+                                        <span
+                                            :class="`text-${m.color}-500 bg-${m.color}-100` "
+                                            class="   mx-1 px-2 py-1    text-xs  rounded-md">
+                                   {{ __(m.title) }}
+                                        </span>
+                                </span>
+              </div>
+
+            </div>
+            <div class="flex">
+              <NewspaperIcon class="w-12 h-12 text-primary-300 "/>
+            </div>
+          </Link>
           <!-- notification/queue card -->
           <div v-if="false" :class="cardShadow"
                class="flex   cursor-pointer   items-center justify-around   bg-white  rounded-lg">
@@ -283,7 +309,7 @@ import {
   Cog6ToothIcon,
   TicketIcon,
   UserIcon,
-  BriefcaseIcon
+  BriefcaseIcon,
 } from "@heroicons/vue/24/outline";
 import {inject, watchEffect} from "vue";
 import Chart from "@/Components/Chart.vue";
@@ -314,6 +340,7 @@ export default {
       notifications: this.$page.props.notifications,
       queue: this.$page.props.queue,
       adminBalance: this.$page.props.adminBalance,
+      articlesStat: this.$page.props.articlesStat,
       cardShadow: 'shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]',
     }
   },
@@ -328,9 +355,10 @@ export default {
     Cog6ToothIcon,
     UserIcon,
     BriefcaseIcon,
+    NewspaperIcon,
   },
   mounted() {
-    // console.log(this.$emit('showToast'))
+    // console.log(this.articlesStat)
 
     // this.showToast('warning', 'hii');
 

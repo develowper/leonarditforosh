@@ -58,6 +58,25 @@
               </div>
               <div class="my-2">
                 <TextInput
+                    id="slug"
+                    type="text"
+                    :placeholder="__('slug')"
+                    classes="  "
+                    v-model="form.slug"
+                    autocomplete="slug"
+                    :error="form.errors.slug"
+                >
+                  <template v-slot:prepend>
+                    <div class="p-3">
+                      <Bars2Icon class="h-5 w-5"/>
+                    </div>
+                  </template>
+
+                </TextInput>
+
+              </div>
+              <div class="my-2">
+                <TextInput
                     id="author"
                     type="text"
                     :placeholder="__('author')"
@@ -141,6 +160,7 @@ import {
   Squares2X2Icon,
   SignalIcon,
   PencilIcon,
+  BookOpenIcon,
 
 } from "@heroicons/vue/24/outline";
 import {QuestionMarkCircleIcon,} from "@heroicons/vue/24/solid";
@@ -172,6 +192,7 @@ export default {
         lang: null,
         author: null,
         title: null,
+        slug: null,
         content: null,
         category_id: null,
         tags: '',
@@ -213,11 +234,14 @@ export default {
     SignalIcon,
     TextEditor,
     PencilIcon,
+    BookOpenIcon,
 
-  },
+  }
+  ,
   mounted() {
     // this.log(this.$page.props)
-  },
+  }
+  ,
   methods: {
     submit() {
       this.img = this.$refs.imageCropper.getCroppedData();
@@ -275,7 +299,9 @@ export default {
         },
       });
     }
-  },
-  watch: {},
+  }
+  ,
+  watch: {}
+  ,
 }
 </script>

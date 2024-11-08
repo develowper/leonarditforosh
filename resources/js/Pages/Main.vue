@@ -1,10 +1,10 @@
 <template>
   <Scaffold>
-    <template v-slot:header>
-      <title>{{__('home')}}</title>
 
-    </template>
+    <Head>
+      <title>{{ __('app_name')}}</title>
 
+    </Head>
     <div
         class="relative  bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-500 to-lime-600">
       <!--Hero-->

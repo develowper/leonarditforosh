@@ -21,20 +21,20 @@
 
         <!-- Dropdown menu -->
         <ul v-if="  chevronShow" @mouseover="chevronRotate=true" @mouseleave="chevronRotate=false"
-            class="flex-col    bg-white  border shadow-xl rounded-lg transform scale-0 group-hover:scale-100  absolute end-0 top-10
+            class="flex  flex-col    bg-white  border shadow-xl rounded-lg transform scale-0 group-hover:scale-100  absolute end-0 top-10
                     transition duration-200 ease-in-out origin-top overflow-hidden   ">
-          <li>
+          <li class=" ">
             <Link href="#"
-                  class="flex px-6   py-4  justify-around      text-sm text-gray-600 transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                  class="flex items-center   py-2       text-sm text-gray-600 transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
               <Image classes=" flex-shrink-0  object-cover mx-1 rounded-full w-9 h-9"
                      :src="route('storage.users')+`/${user.id}.jpg`"
                      alt="jane avatar"
                      type="user"/>
 
-              <div class="flex-col  mx-1  ">
-                <h1 class="    text-sm font-semibold text-gray-700 dark:text-gray-200">
+              <div class="  flex flex-col  ">
+                <h1 class="  block   text-sm font-semibold text-gray-700 dark:text-gray-200">
                   {{ user.fullname }}</h1>
-                <div class="   text-sm text-gray-500 dark:text-gray-400 ">{{ user.phone || user.email }}
+                <div class="    text-sm text-gray-500 dark:text-gray-400 ">{{ user.phone || user.email }}
                 </div>
               </div>
             </Link>

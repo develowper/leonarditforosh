@@ -41,6 +41,7 @@ class ArticleRequest extends FormRequest
             $tmp = array_merge($tmp, [
                 'author' => ['required', 'max:200',],
                 'title' => ['required', 'max:1024',/* Rule::unique('articles', 'title')->ignore($this->id)*/],
+                'slug' => ['nullable', 'max:2048'],
                 'tags' => ['nullable', 'max:1024'],
                 'content' => ['required',],
                 'category_id' => ['nullable', Rule::in($types)],
@@ -65,6 +66,8 @@ class ArticleRequest extends FormRequest
     {
 
         return [
+            'slug.max' => sprintf(__("validator.max_len"), __('title'), 2048, mb_strlen($this->slug)),
+
             'lang.required' => sprintf(__("validator.required"), __('lang')),
             'lang.in' => sprintf(__("validator.invalid"), __('lang')),
 

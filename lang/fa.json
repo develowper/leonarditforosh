@@ -1,7 +1,7 @@
 {
   "app_name": "کود کبوتر",
   "reg_order": "ثبت سفارش",
-  "referral": "همکاری در فروش",
+  "referral": "خرید و فروش",
   "fa": "فارسی",
   "en": "English",
   "ar": "عربی",
@@ -395,7 +395,7 @@
   "see_all": "مشاهده همه",
   "notification": "نوتیفیکیشن",
   "our_services": "خدمات ما",
-  "our_benefits": "مزایای کود کبوتر",
+  "our_benefits": "محصولات کود کبوتر",
   "regular_users": "کاربران عادی",
   "special_users": "کاربران متخصص",
   "how_help_you_revenue": "چگونه به شما در کسب درآمد کمک می کنیم",
@@ -570,5 +570,6 @@
   "messages": "پیام ها",
   "your_message_send_successfully": "پیام شما با موفقیت ارسال شد. نتیجه به اطلاع شما خواهد رسید",
   "edit_slider_item": "ویرایش اسلاید",
+  "slug": "اسلاگ",
   "": ""
 }
