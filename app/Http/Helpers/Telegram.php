@@ -466,6 +466,7 @@ class Telegram
             switch ($type) {
                 case 'article_created':
                 case 'article_edited':
+                case 'article_removed':
                     if ($isCreate)
                         $msg .= " 🟢🟢🟢 " . "یک مقاله ثبت شد" . PHP_EOL;
                     elseif ($isEdit)
