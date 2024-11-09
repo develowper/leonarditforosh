@@ -78,7 +78,7 @@
       <Link :href="route('article.index')" class="nav-ite" :class="navClasses('article')">
         {{ __('articles') }}
       </Link>
-      <Link v-for="page in $page.props.pages" :href="'/'+page.slug" class="nav-item "
+      <Link v-for="page in $page.props.pages" :href="'/'+page.slug" class="nav-ite "
             :class="navClasses(page.slug)">
         {{ page.title }}
       </Link>
@@ -123,8 +123,10 @@ export default {
   },
   methods: {
     navClasses(item) {
+
+
       let base = "py-4 px-1 lg:px-2  text-white font-semibold  transition  duration-300 hover:border-primary-500 hover:text-primary-900 hover:border-b-4 transition  duration-300 ";
-      if (item && (this.route().current(`${item}.*`) || this.route().current(`${item}`)))
+      if (item && (this.route().current(`${item}.*`) || this.route().current(`${item}`) || window.location.href.indexOf(item) !== -1))
         base += "border-b-4 border-primary-200";
       return base;
     },
