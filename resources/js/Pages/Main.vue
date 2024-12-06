@@ -647,7 +647,12 @@ export default {
       window.axios.patch(route('panel.admin.setting.update'), {
             id: this.blockParams.id,
             key: `block_${this.blockParams.id}`,
-            value: JSON.stringify({id: this.blockParams.id, header: this.blockParams.header, body: this.blockParams.body})
+            value: JSON.stringify({
+              id: this.blockParams.id,
+              header: this.blockParams.header,
+              body: this.blockParams.body,
+              icon: this.blockParams.icon
+            })
           },
           {})
           .then((response) => {
