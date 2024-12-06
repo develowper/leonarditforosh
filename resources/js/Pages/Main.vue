@@ -678,6 +678,7 @@ export default {
       this.blockParams.header = item.header;
       this.blockParams.body = item.body;
       this.blockParams.id = item.id;
+      this.blockParams.icon = item.icon;
       this.modalEditBlock.show();
     },
     recaptchaVerified(response) {
