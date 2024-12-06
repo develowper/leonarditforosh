@@ -27,6 +27,6 @@ class SendToTelegramListener implements ShouldQueue
      */
     public function handle(SendToTelegram $event)
     {
-        Telegram::log($event->to, $event->type, $event->data);
+        Telegram::sendLog($event->to, $event->type, $event->data);
     }
 }
