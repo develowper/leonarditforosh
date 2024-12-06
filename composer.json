@@ -22,7 +22,7 @@
     "laravel/tinker": "^2.7",
     "morilog/jalali": "3.*",
     "spatie/browsershot": "^3.58",
-    "tightenco/ziggy": "^1.0"
+    "tightenco/ziggy": "*"
   },
   "require-dev": {
     "fakerphp/faker": "^1.9.1",

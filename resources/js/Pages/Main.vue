@@ -119,12 +119,13 @@
 
           <div class="m-4 mt-8 gap-4 grid md:grid-cols-2 lg:grid-cols-4 bounce-top-icons">
 
-            <div v-for="(item,idx) in section1"
-                 class="relative flex gap-4 bg-gradient-to-l   shadow-md rounded-lg p-4 py-8 items-stretch">
+            <div v-for="(item,idx) in section1" :class="{   'hover:cursor-pointer hover:scale-[101%]':isAdmin()}"
+                 @click="showEditBlock(item)"
+                 class="relative flex gap-4 bg-gradient-to-l   shadow-md rounded-lg p-4 py-8 items-stretch   transition duration-200 ease-in-out">
               <component v-bind:is="item.icon" class="w-12 h-12 lg:w-24 lg:h-24 text-primary-500"></component>
               <div class="flex flex-col justify-start py-4 space-y-2 items-start  ">
                 <div class="text-sm  text-primary-900 font-bold">{{ __(item.header) }}</div>
-                <p class="text-sm text-start text-primary-900">{{ __(item.sub) }}</p>
+                <p class="text-sm text-start text-primary-900">{{ __(item.body) }}</p>
               </div>
               <!--wave-->
               <svg class="absolute z-[-1] opacity-30 bottom-0 w-full start-0 wave-top" viewBox="0 0 1439 147"
@@ -158,12 +159,13 @@
 
           <div class="m-4 mt-8 gap-4 grid md:grid-cols-2 lg:grid-cols-4 bounce-top-icons">
 
-            <div v-for="(item,idx) in section2"
+            <div v-for="(item,idx) in section2" :class="{   'hover:cursor-pointer hover:scale-[101%]':isAdmin()}"
+                 @click="showEditBlock(item)"
                  class="relative flex gap-4 bg-gradient-to-l   shadow-md rounded-lg p-4 py-8 items-stretch">
               <!--              <component v-bind:is="item.icon" class="w-12 h-12 lg:w-24 lg:h-24 text-primary-500"></component>-->
               <div class="flex flex-col py-4  justify-start space-y-2    ">
                 <div class="text-sm  text-primary-900 font-bold">{{ __(item.header) }}</div>
-                <p class="text-sm text-start text-primary-900">{{ __(item.sub) }}</p>
+                <p class="text-sm text-start text-primary-900">{{ __(item.body) }}</p>
               </div>
               <!--wave-->
               <svg class="absolute z-[-1] opacity-30 bottom-0 w-full start-0 wave-top" viewBox="0 0 1439 147"
@@ -365,6 +367,145 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal Edit blocks -->
+    <div
+        data-te-modal-init
+        class="fixed left-0 top-0 backdrop-blur z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
+        id="editBlockModal"
+        tabindex="-1"
+        aria-labelledby="editBlockModalLabel"
+        aria-hidden="true">
+      <div
+          data-te-modal-dialog-ref
+          class="pointer-events-none relative w-auto translate-y-[-50px] opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 px-2 sm:px-4 md:px8 min-[576px]:max-w-5xl">
+        <div
+            class="min-[576px]:shadow-[0_0.5rem_1rem_rgba(#000, 0.15)] pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-white bg-clip-padding text-current shadow-lg outline-none">
+          <div
+              class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 border-opacity-100 p-4">
+            <!--Modal title-->
+            <h5
+                class="text-xl font-medium leading-normal text-neutral-800"
+                id="editBlockModalLabel">
+
+            </h5>
+            <!--Close button-->
+            <button
+                :class="`text-danger`"
+                type="button"
+                class="box-content rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
+                data-te-modal-dismiss
+                aria-label="Close">
+              <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="h-6 w-6">
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+
+          <!--Modal body-->
+          <div class="relative flex-auto p-4" data-te-modal-body-ref>
+            <div
+                class="flex items-center justify-start px-4 py-2 text-primary-500 border-b md:py-4">
+              <FolderPlusIcon class="h-7 w-7 mx-3"/>
+
+              <h1 class="text-2xl font-semibold">{{ __('edit_block') }}{{ blockParams.id }}</h1>
+
+            </div>
+
+
+            <div class="px-2  md:px-4">
+
+              <div
+                  class="    mx-auto md:max-w-3xl   mt-6 px-2 md:px-4 py-4   overflow-hidden  rounded-lg  ">
+
+
+                <div
+                    class="flex flex-col mx-2   col-span-2 w-full     px-2"
+                >
+
+                  <form @submit.prevent="editBlock">
+                    <input type="hidden" name="_token" :value="csrf()">
+
+
+                    <div class="my-2">
+                      <TextInput
+                          id="block_header"
+                          type="text"
+                          :placeholder="__('block_header')"
+                          classes="  "
+                          v-model="blockParams.header"
+                          autocomplete="key"
+                          :error="blockParams.errors.header"
+                      >
+                        <template v-slot:prepend>
+                          <div class="p-3">
+                            <Bars2Icon class="h-5 w-5"/>
+                          </div>
+                        </template>
+
+                      </TextInput>
+                    </div>
+                    <div class="my-2">
+                      <TextInput
+                          :multiline="true"
+                          id="block_body"
+                          type="text"
+                          :placeholder="__('block_body')"
+                          classes="  "
+                          v-model="blockParams.body"
+                          autocomplete="block_body"
+                          :error="blockParams.errors.body"
+                      >
+                        <template v-slot:prepend>
+                          <div class="p-3">
+                            <ChatBubbleBottomCenterTextIcon class="h-5 w-5"/>
+                          </div>
+                        </template>
+
+                      </TextInput>
+
+                    </div>
+
+                    <div v-if="loading" class="shadow w-full bg-grey-light m-2   bg-gray-200 rounded-full">
+                      <div
+                          class=" bg-primary rounded  text-xs leading-none py-[.1rem] text-center text-white duration-300 "
+                          :class="{' animate-pulse': loading}"
+                          :style="`width: 100%`">
+                      </div>
+                    </div>
+
+                    <div class="    mt-4">
+
+                      <PrimaryButton class="w-full  "
+                                     :class="{ 'opacity-25': loading}"
+                                     :disabled="loading">
+                        <LoadingIcon class="w-4 h-4 mx-3 " v-if="  loading"/>
+                        <span class=" text-lg  ">  {{ __('edit') }}</span>
+                      </PrimaryButton>
+
+                    </div>
+
+                  </form>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
   </Scaffold>
 
 </template>
@@ -413,6 +554,7 @@ export default {
       showRecaptcha: true,
       loadingTimeout: 30000, // 30 seconds
       params: {errors: {}, fullname: null, phone: null, description: null, recaptcha: null},
+      blockParams: {errors: {}, id: null, block_header: null, block_body: null},
       loading: false,
       heroImage,
       section1: this.$page.props.section1,
@@ -464,6 +606,9 @@ export default {
 
     const modalEl = document.getElementById('messageModal');
     this.modal = new Modal(modalEl);
+
+    const modalE2 = document.getElementById('editBlockModal');
+    this.modalEditBlock = new Modal(modalE2);
   },
   methods: {
     addRefOrder() {
@@ -496,6 +641,44 @@ export default {
             // always executed
             this.loading = false;
           });
+    }, editBlock() {
+      this.loading = true;
+
+      window.axios.patch(route('panel.admin.setting.update'), {
+            id: this.blockParams.id,
+            key: `block_${this.blockParams.id}`,
+            value: JSON.stringify({id: this.blockParams.id, header: this.blockParams.header, body: this.blockParams.body})
+          },
+          {})
+          .then((response) => {
+            if (response.data && response.data.message) {
+              this.modalEditBlock.hide();
+              this.showToast('success', response.data.message);
+              this.blockParams = {errors: {}, id: null, header: null, body: null};
+            }
+            window.location.reload()
+          })
+
+          .catch((error) => {
+            this.error = this.getErrors(error);
+            if (error.response && error.response.data) {
+              this.log(error.response)
+              this.blockParams.errors = error.response.data.errors;
+
+            }
+            this.showToast('danger', this.error);
+          })
+          .finally(() => {
+            // always executed
+            this.loading = false;
+          });
+    },
+    showEditBlock(item) {
+      if (!this.isAdmin()) return;
+      this.blockParams.header = item.header;
+      this.blockParams.body = item.body;
+      this.blockParams.id = item.id;
+      this.modalEditBlock.show();
     },
     recaptchaVerified(response) {
       this.params.recaptcha = response;

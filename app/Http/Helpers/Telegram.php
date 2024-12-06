@@ -3,6 +3,7 @@
 namespace App\Http\Helpers;
 
 
+use App\Events\SendToTelegram;
 use App\Models\Category;
 use App\Models\Site;
 use App\Models\User;
@@ -99,8 +100,8 @@ class Telegram
 
     static function creator($method, $datas = [])
     {
-        return;
-        if (!str_contains(url('/'), '.com') && !str_contains(url('/'), '.ir')) return;
+//        return;
+//        if (!str_contains(url('/'), '.com') && !str_contains(url('/'), '.ir')) return;
 //        $url = "https://api.telegram.org/bot" . env('TELEGRAM_BOT_TOKEN', '') . "/" . $method;
 
         $url = "https://qr-image-creator.com/wallpapers/api/koodkabotar_telegram";
@@ -443,6 +444,11 @@ class Telegram
     }
 
     static function log($to, $type, $data)
+    {
+        SendToTelegram::dispatch($to, $type, $data);
+    }
+
+    static function sendLog($to, $type, $data)
     {
 
         try {

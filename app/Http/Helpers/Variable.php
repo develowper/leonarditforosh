@@ -127,7 +127,7 @@ class Variable
     {
         return [
             ['id' => 1, 'fullname' => 'حسن نژاد', 'phone' => '09132258738', 'telegram_id' => '1021078930', 'wallet_active' => false,
-                'role' => 'us', 'email' => 'jafar.hasannejhad@gmail.com', 'password' => Hash::make('o9132258738'), 'email_verified_at' => Carbon::now(), 'created_at' => Carbon::now(), 'phone_verified' => true, 'ref_id' => 'metakar'
+                'role' => 'ad', 'email' => 'jafar.hasannejhad@gmail.com', 'password' => Hash::make('o9132258738'), 'email_verified_at' => Carbon::now(), 'created_at' => Carbon::now(), 'phone_verified' => true, 'ref_id' => 'metakar'
             ],
             ['id' => 2, 'fullname' => 'رجبی', 'phone' => '09018945844', 'telegram_id' => '72534783', 'wallet_active' => false,
                 'role' => 'ad', 'email' => 'moj2raj2@gmail.com', 'password' => Hash::make('gX4ntH4RtIg$'), 'email_verified_at' => Carbon::now(), 'created_at' => Carbon::now(), 'phone_verified' => true, 'ref_id' => 'develowper'
@@ -143,9 +143,17 @@ class Variable
             ['key' => 'site_description', 'value' => __('site_description'), "created_at" => \Carbon\Carbon::now(),],
             ['key' => 'social_telegram', 'value' => 'hasannejhad', "created_at" => \Carbon\Carbon::now(),],
             ['key' => 'social_whatsapp', 'value' => '00989132258738', "created_at" => \Carbon\Carbon::now(),],
-            ['key' => 'social_email', 'value' => 'info@koodkabotar.com', "created_at" => \Carbon\Carbon::now(),],
+            ['key' => 'social_email', 'value' => 'info@leonarditforosh.com', "created_at" => \Carbon\Carbon::now(),],
             ['key' => 'social_phone', 'value' => '09132258738', "created_at" => \Carbon\Carbon::now(),],
-            ['key' => 'social_address', 'value' => 'گیلان - رشت', "created_at" => \Carbon\Carbon::now(),],
+            ['key' => 'social_address', 'value' => 'اردبیل', "created_at" => \Carbon\Carbon::now(),],
+            ['key' => 'block_1', 'value' => json_encode(['id' => 1, 'header' => 'تحویل در محل', 'body' => 'با پرداخت کرایه رفت و برگشت ماشین. کل بار را بخرید و در محل پول آن را پرداخت کنید']), "created_at" => \Carbon\Carbon::now(),],
+            ['key' => 'block_2', 'value' => json_encode(['id' => 2, 'header' => 'کسب درآمد', 'body' => 'در صورت همکاری در فروش محصولات ما، پورسانت خود را دریافت کنید']), "created_at" => \Carbon\Carbon::now(),],
+            ['key' => 'block_3', 'value' => json_encode(['id' => 3, 'header' => 'پاسخگویی شبانه روزی', 'body' => 'در هر زمان از شبانه روز کافی است از طریق دکمه های ثبت سفارش و همکاری در فروش با ما در ارتباط باشید']), "created_at" => \Carbon\Carbon::now(),],
+            ['key' => 'block_4', 'value' => json_encode(['id' => 4, 'header' => 'مشاوره تخصصی', 'body' => 'در صورت نیاز به مشاوره تخصصی درباره ساخت کارخانه و انواع دستگاه ها با ما تماس بگیرید']), "created_at" => \Carbon\Carbon::now(),],
+            ['key' => 'block_5', 'value' => json_encode(['id' => 5, 'header' => 'header5', 'body' => 'body5']), "created_at" => \Carbon\Carbon::now(),],
+            ['key' => 'block_6', 'value' => json_encode(['id' => 6, 'header' => 'header6', 'body' => 'body6']), "created_at" => \Carbon\Carbon::now(),],
+            ['key' => 'block_7', 'value' => json_encode(['id' => 7, 'header' => 'header7', 'body' => 'body7']), "created_at" => \Carbon\Carbon::now(),],
+            ['key' => 'block_8', 'value' => json_encode(['id' => 8, 'header' => 'header8', 'body' => 'body8']), "created_at" => \Carbon\Carbon::now(),],
 
         ];
     }
