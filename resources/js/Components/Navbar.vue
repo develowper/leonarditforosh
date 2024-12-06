@@ -70,7 +70,7 @@
     </div>
     <!-- mobile menu -->
     <div
-        
+
         class="hidden mobile-menu flex flex-col   bg-gradient-to-b from-primary-400   to-primary-600 px-4 shadow-md p-4">
       <Link :href="route('/')" class="px-4 nav-ite" :class="navClasses('/')">
         {{ __('home') }}
