@@ -106,12 +106,12 @@ Route::get('/', function (Request $request) {
         'section1Header' => __('our_services'),
         'section1' => $settings->take(4)->map(function ($i) {
             $tmp = json_decode($i->value);
-            return ['id' => $tmp->id ?? '', 'icon' => $tmp->icon ?? '', 'header' => $tmp->header ?? '', 'body' => $tmp->body ?? ''];
+            return ['id' => $i->id ?? '', 'icon' => $tmp->icon ?? '', 'header' => $tmp->header ?? '', 'body' => $tmp->body ?? ''];
         }),
         'section2Header' => __('our_benefits'),
         'section2' => $settings->take(-4)->map(function ($i) {
             $tmp = json_decode($i->value);
-            return ['id' => $tmp->id ?? '', 'icon' => $tmp->icon ?? '', 'header' => $tmp->header ?? '', 'body' => $tmp->body ?? ''];
+            return ['id' => $i->id ?? '', 'icon' => $tmp->icon ?? '', 'header' => $tmp->header ?? '', 'body' => $tmp->body ?? ''];
         }),
         'carouselImages' => [],
         'counts' => [
