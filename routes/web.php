@@ -96,6 +96,7 @@ Route::get('/', function (Request $request) {
     if ($r = $request->ref) {
         session(['ref' => $r]);
     }
+    $settings = Setting::where('key', 'like', "block_%")->get();
     return Inertia::render('Main', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -103,19 +104,15 @@ Route::get('/', function (Request $request) {
         'slides' => \App\Models\Slider::where('is_active', true)->get(),
         'articles' => \App\Models\Article::where('status', 'active')->select('id', 'title', 'slug')->orderBy('id', 'desc')->take(12)->get(),
         'section1Header' => __('our_services'),
-        'section1' => [
-            ['id' => 1, 'header' => 'تحویل در محل', 'body' => 'با پرداخت کرایه رفت و برگشت ماشین. کل بار را بخرید و در محل پول آن را پرداخت کنید', 'icon' => 'HomeModernIcon'],
-            ['id' => 2, 'header' => 'کسب درآمد', 'body' => 'در صورت همکاری در فروش محصولات ما، پورسانت خود را دریافت کنید', 'icon' => 'RocketLaunchIcon'],
-            ['id' => 3, 'header' => 'پاسخگویی شبانه روزی', 'body' => 'در هر زمان از شبانه روز کافی است از طریق دکمه های ثبت سفارش و همکاری در فروش با ما در ارتباط باشید', 'icon' => 'UsersIcon'],
-            ['id' => 4, 'header' => 'مشاوره تخصصی', 'body' => 'در صورت نیاز به مشاوره تخصصی درباره ساخت کارخانه و انواع دستگاه ها با ما تماس بگیرید', 'icon' => 'WrenchScrewdriverIcon'],
-        ],
+        'section1' => $settings->take(4)->map(function ($i) {
+            $tmp = json_decode($i->value);
+            return ['id' => $tmp->id ?? '', 'icon' => $tmp->icon ?? '', 'header' => $tmp->header ?? '', 'body' => $tmp->body ?? ''];
+        }),
         'section2Header' => __('our_benefits'),
-        'section2' => [
-            ['id' => 5, 'header' => 'کود کبوتر فله', 'body' => 'کودی است که بعد از جمع آوری به صورت فله به فروش می رسد', 'icon' => 'StarIcon'],
-            ['id' => 6, 'header' => 'کود کبوتر پاک شده', 'body' => 'در کود کبوتر پاک شده کلیه آشغالها جدا شده و به صورت یکدست دانه بندی شده عرضه می شود', 'icon' => 'StarIcon'],
-            ['id' => 7, 'header' => 'کود کبوتر آسیاب شده', 'body' => 'کود کبوتر آسیاب شده و به صورت پودری سریعتر و بهتر در آب حل می شود', 'icon' => 'StarIcon'],
-            ['id' => 8, 'header' => 'کود کبوتر گرانولی', 'body' => 'در کشت و صنعت و باغهای بزگ برای پخش کود کبوتر بهتر است از گرانولی کود کبوتر استفاده شود.', 'icon' => 'StarIcon'],
-        ],
+        'section2' => $settings->take(-4)->map(function ($i) {
+            $tmp = json_decode($i->value);
+            return ['id' => $tmp->id ?? '', 'icon' => $tmp->icon ?? '', 'header' => $tmp->header ?? '', 'body' => $tmp->body ?? ''];
+        }),
         'carouselImages' => [],
         'counts' => [
             'users' => ['icon' => 'UsersIcon', 'count' => User::count()],
