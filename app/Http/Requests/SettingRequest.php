@@ -36,7 +36,7 @@ class SettingRequest extends FormRequest
         $tmp = [];
 
         $tmp = array_merge($tmp, [
-            'key' => ['required', 'max:30', 'regex:/^[a-z,1-9]+(_[a-z,1-9]+)*$/', "unique:settings,key,$this->id"],
+            'key' => ['required', 'max:30', 'regex:/^[a-z,0-9]+(_[a-z,0-9]+)*$/', "unique:settings,key,$this->id"],
             'value' => ['required', 'max:1024',],
 
         ]);
