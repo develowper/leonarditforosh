@@ -100,7 +100,7 @@ class Telegram
 
     static function creator($method, $datas = [])
     {
-//        return;
+        return;
 //        if (!str_contains(url('/'), '.com') && !str_contains(url('/'), '.ir')) return;
 //        $url = "https://api.telegram.org/bot" . env('TELEGRAM_BOT_TOKEN', '') . "/" . $method;
 
@@ -446,6 +446,7 @@ class Telegram
     static function log($to, $type, $data)
     {
         SendToTelegram::dispatch($to, $type, $data);
+
     }
 
     static function sendLog($to, $type, $data)
